@@ -60,34 +60,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* Glowing Badge Background with Pulse */}
-      <img
-        src="/sbss-badge.png"
-        alt="SBSS Badge Background"
-        style={{
-          position: 'absolute',
-          top: '130px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          opacity: 0.08,
-          filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.25))',
-          width: '120px',
-          zIndex: 0,
-          pointerEvents: 'none',
-          animation: 'pulseGlow 4s ease-in-out infinite'
-        }}
-      />
-
-      <style>
-        {`
-          @keyframes pulseGlow {
-            0% { transform: translateX(-50%) scale(1); opacity: 0.08; }
-            50% { transform: translateX(-50%) scale(1.08); opacity: 0.12; }
-            100% { transform: translateX(-50%) scale(1); opacity: 0.08; }
-          }
-        `}
-      </style>
-
       {/* Branding */}
       <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', paddingTop: '60px' }}>
         <h1 style={{ fontSize: '4.5rem', fontWeight: '900', letterSpacing: '0.03em', textShadow: '0 0 10px rgba(255,255,255,0.9)', marginBottom: '1rem' }}>
@@ -96,6 +68,30 @@ export default function App() {
         <p style={{ color: '#aaa', fontSize: '1.2rem' }}>
           Strategic Security. Real-World Results.
         </p>
+
+        {/* Glowing Badge Background with Pulse */}
+        <img
+          src="/sbss-badge.png"
+          alt="SBSS Badge Background"
+          style={{
+            marginTop: '2rem',
+            opacity: 0.08,
+            filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.25))',
+            width: '150px',
+            animation: 'pulseGlow 4s ease-in-out infinite',
+            pointerEvents: 'none'
+          }}
+        />
+
+        <style>
+          {`
+            @keyframes pulseGlow {
+              0% { transform: scale(1); opacity: 0.08; }
+              50% { transform: scale(1.1); opacity: 0.12; }
+              100% { transform: scale(1); opacity: 0.08; }
+            }
+          `}
+        </style>
 
         {/* Assessment Type Selection */}
         {showOptions && (
