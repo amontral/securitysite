@@ -75,9 +75,9 @@ export default function App() {
           alt="SBSS Badge Background"
           style={{
             marginTop: '2rem',
-            opacity: 0.25,
-            filter: 'drop-shadow(0 0 35px rgba(255, 255, 255, 0.4))',
-            width: '180px',
+            opacity: 0.35,
+            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.55))',
+            width: '200px',
             animation: 'pulseGlow 4s ease-in-out infinite',
             pointerEvents: 'none'
           }}
@@ -86,24 +86,26 @@ export default function App() {
         <style>
           {`
             @keyframes pulseGlow {
-              0% { transform: scale(1); opacity: 0.25; }
-              50% { transform: scale(1.1); opacity: 0.35; }
-              100% { transform: scale(1); opacity: 0.25; }
+              0% { transform: scale(1); opacity: 0.35; }
+              50% { transform: scale(1.1); opacity: 0.45; }
+              100% { transform: scale(1); opacity: 0.35; }
             }
           `}
         </style>
+      </div>
 
-        {/* Assessment Type Selection */}
-        {showOptions && (
-          <div style={{ marginTop: '2rem' }}>
+      {/* Floating Assessment Type Modal */}
+      {showOptions && (
+        <div style={modalOverlay}>
+          <div style={modalBox}>
             <h3 style={{ color: 'lightgray' }}>Choose Assessment Type</h3>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
               <button onClick={() => navigate('/assessment?type=physical')} style={choiceBtnStyle}>Physical Security</button>
               <button onClick={() => navigate('/assessment?type=infosec')} style={choiceBtnStyle}>Information Security</button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Disclaimer Modal */}
       {showDisclaimer && (
