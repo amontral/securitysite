@@ -104,9 +104,26 @@ export default function Assessment() {
     }
   };
 
+  const sendResultsByEmail = () => {
+    fetch("https://formspree.io/f/mpwpyvkr", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: disclaimerInfo.name,
+        email: disclaimerInfo.email,
+        business: disclaimerInfo.business,
+        type,
+        score: getScore(),
+        timestamp: disclaimerInfo.timestamp,
+        answers: answers.map((a, i) => `${controls[i]} - ${a}`).join('\n')
+      })
+    }).then(res => {
+      if (!res.ok) console.error("Email not sent");
+    });
+  };
+
   const downloadPDF = () => {
     const pdf = new jsPDF();
-
     const loadImageAsBase64 = (src, callback) => {
       const img = new Image();
       img.crossOrigin = 'Anonymous';
@@ -127,13 +144,12 @@ export default function Assessment() {
       pdf.text("Silex Strategic Group", 20, 30);
       pdf.setFontSize(12);
       pdf.text("Email: silexstrategicgroup@gmail.com | Phone: 501-952-7172", 20, 40);
-      pdf.text(`Assessed Business Name: ${disclaimerInfo.business || 'N/A'}`, 20, 50);
-      pdf.text(`Assessed Business Contact Email: ${disclaimerInfo.email || 'N/A'}`, 20, 60);
-      pdf.text(`Disclaimer Acknowledged: ${new Date(disclaimerInfo.timestamp).toLocaleString() || 'N/A'}`, 20, 70);
+      pdf.text(`Business Name: ${disclaimerInfo.business || 'N/A'}`, 20, 50);
+      pdf.text(`Contact Email: ${disclaimerInfo.email || 'N/A'}`, 20, 60);
+      pdf.text(`Acknowledged: ${new Date(disclaimerInfo.timestamp).toLocaleString() || 'N/A'}`, 20, 70);
       pdf.text(`Assessment Type: ${type === 'physical' ? 'Physical Security' : 'Information Security'}`, 20, 80);
       pdf.text(`Score: ${getScore()}`, 20, 90);
       pdf.text(`Disclaimer: This is a self-assessment. SBSS certification is subject to validation and audit.`, 20, 100, { maxWidth: 170 });
-
       pdf.addImage(badgeBase64, 'PNG', 20, 110, 30, 30);
 
       let y = 150;
@@ -151,6 +167,7 @@ export default function Assessment() {
       });
 
       pdf.save('sbss-assessment-results.pdf');
+      sendResultsByEmail();
     });
   };
 
