@@ -38,21 +38,24 @@ export default function App() {
 
       {/* Glowing Badge Background */}
 <img
-  src="/sbss-badge-transparent.png"
-  alt="SBSS Badge Background"
+  src="/sbss-badge.png"
+  alt=""
+  aria-hidden="true"
   style={{
     position: 'absolute',
-    top: '50%',
+    top: '55%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    opacity: 0.12,
-    filter: 'brightness(1.5) drop-shadow(0 0 30px rgba(255, 255, 255, 0.3))',
-    width: '90%',
-    maxWidth: '700px',
+    opacity: 0.07,
+    filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.15)) blur(2px)',
+    width: '70%',
+    maxWidth: '500px',
     zIndex: 0,
     pointerEvents: 'none',
+    userSelect: 'none'
   }}
 />
+
 
       {/* Navigation */}
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
