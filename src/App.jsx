@@ -12,28 +12,29 @@ export default function App() {
   return (
     <div style={{ backgroundColor: '#0c0c0e', minHeight: '100vh', color: 'white', position: 'relative' }}>
       <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={{
-          fullScreen: false,
-          background: { color: '#0c0c0e' },
-          particles: {
-            number: { value: 40 },
-            size: { value: 2 },
-            move: { enable: true, speed: 0.5 },
-            opacity: { value: 0.4 },
-            links: { enable: true, color: '#888' },
-          },
-        }}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: 0,
-          width: '100%',
-          height: '100%',
-        }}
-      />
+  id="tsparticles"
+  init={particlesInit}
+  options={{
+    background: { color: '#0c0c0e' },
+    fullScreen: false,
+    particles: {
+      number: { value: 50 },
+      size: { value: 3 },
+      move: { enable: true, speed: 1 },
+      opacity: { value: 0.5 },
+      links: { enable: true, color: '#ffffff' },
+    },
+  }}
+  style={{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: 0,
+  }}
+/>
+
 
       <nav style={{ display: 'flex', justifyContent: 'center', gap: '1rem', padding: '1.5rem', position: 'relative', zIndex: 2 }}>
         <Link to="/assessment?type=physical" style={navLinkStyle}>Start Assessment</Link>
