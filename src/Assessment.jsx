@@ -147,7 +147,7 @@ export default function Assessment() {
                 overflowX: 'auto',
                 fontSize: '0.9rem'
               }}>
-                {`<img src="https://yourdomain.com/badge.png" alt="SBSS Certified Secure Business" width="120"/>`}
+                {`<img src="https://securitysite.vercel.app/badge.png" alt="SBSS Certified Secure Business" width="120"/>`}
               </pre>
             </div>
           ) : (
