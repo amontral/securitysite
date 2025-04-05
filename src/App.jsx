@@ -1,6 +1,5 @@
-// src/App.jsx
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
 
@@ -8,10 +7,38 @@ export default function App() {
   const [showOptions, setShowOptions] = useState(false);
   const [showServices, setShowServices] = useState(false);
   const [showContact, setShowContact] = useState(false);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    business: '',
+    email: '',
+    agreed: false
+  });
+
   const navigate = useNavigate();
 
   const particlesInit = async (main) => {
     await loadFull(main);
+  };
+
+  const handleStartAssessmentClick = () => {
+    setShowDisclaimer(true);
+  };
+
+  const handleDisclaimerSubmit = (e) => {
+    e.preventDefault();
+    if (formData.name && formData.business && formData.email && formData.agreed) {
+      localStorage.setItem('sbss_disclaimer', JSON.stringify({
+        ...formData,
+        timestamp: new Date().toISOString()
+      }));
+      setShowDisclaimer(false);
+      setShowOptions(true);
+    } else {
+      alert('Please complete all fields and accept the disclaimer.');
+    }
   };
 
   return (
@@ -32,12 +59,11 @@ export default function App() {
             size: { value: { min: 1, max: 3 } }
           }
         }}
-        style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, pointerEvents: 'none' }}
       />
 
       {/* Navigation */}
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
-        <button onClick={() => setShowOptions(true)} style={navButtonStyle}>Small Business Security Assessment</button>
+        <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Small Business Security Assessment</button>
         <div style={{ position: 'relative' }}>
           <button onClick={() => { setShowServices(!showServices); setShowContact(false); }} style={navButtonStyle}>Services</button>
           {showServices && (
@@ -79,10 +105,37 @@ export default function App() {
           </div>
         )}
       </div>
+
+      {/* Disclaimer Modal */}
+      {showDisclaimer && (
+        <div style={modalOverlay}>
+          <div style={modalBox}>
+            <h2>Before You Begin</h2>
+            <p style={{ fontSize: '0.95rem', marginBottom: '1rem', color: '#ccc' }}>
+              The Small Business Security Assessment is a self-evaluation tool designed to help businesses identify potential risks. By proceeding, you agree that:
+            </p>
+            <ul style={{ fontSize: '0.85rem', textAlign: 'left', color: '#ccc', marginBottom: '1rem' }}>
+              <li>Silex Strategic Group assumes no liability for security outcomes.</li>
+              <li>Badge usage may require an audit for validation.</li>
+              <li>You may be contacted for follow-up.</li>
+            </ul>
+            <form onSubmit={handleDisclaimerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+              <input type="text" placeholder="Business Name" value={formData.business} onChange={(e) => setFormData({ ...formData, business: e.target.value })} />
+              <input type="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+              <label>
+                <input type="checkbox" checked={formData.agreed} onChange={(e) => setFormData({ ...formData, agreed: e.target.checked })} /> I agree to the disclaimer terms
+              </label>
+              <button type="submit" style={choiceBtnStyle}>Continue to Assessment</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
+// Styles
 const navButtonStyle = {
   background: 'transparent',
   color: 'lightblue',
@@ -115,4 +168,28 @@ const popoverStyle = {
   zIndex: 2,
   minWidth: '260px',
   textAlign: 'left'
+};
+
+const modalOverlay = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100vw',
+  height: '100vh',
+  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 10
+};
+
+const modalBox = {
+  backgroundColor: '#1a1a1a',
+  padding: '2rem',
+  borderRadius: '12px',
+  maxWidth: '500px',
+  width: '90%',
+  color: 'white',
+  textAlign: 'center',
+  boxShadow: '0 0 20px rgba(0,0,0,0.5)'
 };
