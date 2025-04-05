@@ -16,7 +16,7 @@ export default function App() {
   init={particlesInit}
   options={{
     background: { color: '#0c0c0e' },
-    fullScreen: false,
+    fullScreen: { enable: false },
     particles: {
       number: { value: 50 },
       size: { value: 3 },
@@ -34,8 +34,6 @@ export default function App() {
     zIndex: 0,
   }}
 />
-
-
       <nav style={{ display: 'flex', justifyContent: 'center', gap: '1rem', padding: '1.5rem', position: 'relative', zIndex: 2 }}>
         <Link to="/assessment?type=physical" style={navLinkStyle}>Start Assessment</Link>
         <Link to="/services" style={navLinkStyle}>Services</Link>
