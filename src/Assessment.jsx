@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import badgeImg from '../assets/sbss-badge.png'; // Ensure this image exists in your project
 
 export default function Assessment() {
   const location = useLocation();
   const navigate = useNavigate();
   const type = new URLSearchParams(location.search).get('type');
 
+  const disclaimerInfo = JSON.parse(localStorage.getItem('sbss_disclaimer')) || {};
   const physicalControls = [
     "SBSS.Physical.1: Is facility access restricted to authorized personnel?",
     "SBSS.Physical.2: Are visitor logs maintained at all access points?",
@@ -109,24 +110,34 @@ export default function Assessment() {
     pdf.setFontSize(16);
     pdf.text("Silex Strategic Group", 20, 30);
     pdf.setFontSize(12);
-    pdf.text("Email: silexstrategicgroup@gmail.com | Phone: 501-952-7172", 20, 50);
-    pdf.text(`Assessment Type: ${type === 'physical' ? 'Physical Security' : 'Information Security'}`, 20, 70);
+    pdf.text("Email: silexstrategicgroup@gmail.com | Phone: 501-952-7172", 20, 40);
+    pdf.text(`Business Name: ${disclaimerInfo.business || 'N/A'}`, 20, 50);
+    pdf.text(`Contact Email: ${disclaimerInfo.email || 'N/A'}`, 20, 60);
+    pdf.text(`Acknowledged: ${new Date(disclaimerInfo.timestamp).toLocaleString() || 'N/A'}`, 20, 70);
+    pdf.text(`Assessment Type: ${type === 'physical' ? 'Physical Security' : 'Information Security'}`, 20, 80);
     pdf.text(`Score: ${getScore()}`, 20, 90);
-    pdf.text(`Disclaimer: This is a self-assessment. SBSS certification is subject to validation and audit.`, 20, 110, { maxWidth: 170 });
+    pdf.text(`Disclaimer: This is a self-assessment. SBSS certification is subject to validation and audit.`, 20, 100, { maxWidth: 170 });
 
-    let y = 140;
-    controls.forEach((control, i) => {
-      const answer = answers[i] || 'No Response';
-      const text = `${control} - Answer: ${answer}`;
-      pdf.text(text, 20, y, { maxWidth: 170 });
-      y += 20;
-      if (y > 780) {
-        pdf.addPage();
-        y = 40;
-      }
-    });
-
-    pdf.save('sbss-assessment-results.pdf');
+    // Insert badge image
+    const img = new Image();
+    img.src = badgeImg;
+    img.onload = () => {
+      pdf.addImage(img, 'PNG', 20, 110, 30, 30);
+      let y = 150;
+      controls.forEach((control, i) => {
+        const answer = answers[i] || 'No Response';
+        const lines = pdf.splitTextToSize(`${control} - Answer: ${answer}`, 170);
+        lines.forEach(line => {
+          if (y > 270) {
+            pdf.addPage();
+            y = 20;
+          }
+          pdf.text(line, 20, y);
+          y += 10;
+        });
+      });
+      pdf.save('sbss-assessment-results.pdf');
+    };
   };
 
   return (
