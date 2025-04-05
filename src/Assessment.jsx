@@ -104,19 +104,29 @@ export default function Assessment() {
     }
   };
 
-  const handleDownload = async () => {
-    const report = document.getElementById('report-content');
-    const canvas = await html2canvas(report, { scale: 2 });
-    const imgData = canvas.toDataURL('image/png');
+  const downloadPDF = () => {
+    const pdf = new jsPDF();
+    pdf.setFontSize(16);
+    pdf.text("Silex Strategic Group", 20, 30);
+    pdf.setFontSize(12);
+    pdf.text("Email: silexstrategicgroup@gmail.com | Phone: 501-952-7172", 20, 50);
+    pdf.text(`Assessment Type: ${type === 'physical' ? 'Physical Security' : 'Information Security'}`, 20, 70);
+    pdf.text(`Score: ${getScore()}`, 20, 90);
+    pdf.text(`Disclaimer: This is a self-assessment. SBSS certification is subject to validation and audit.`, 20, 110, { maxWidth: 170 });
 
-    const pdf = new jsPDF({ orientation: 'portrait', unit: 'px', format: 'a4' });
-    const margin = 20;
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth() - margin * 2;
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    let y = 140;
+    controls.forEach((control, i) => {
+      const answer = answers[i] || 'No Response';
+      const text = `${control} - Answer: ${answer}`;
+      pdf.text(text, 20, y, { maxWidth: 170 });
+      y += 20;
+      if (y > 780) {
+        pdf.addPage();
+        y = 40;
+      }
+    });
 
-    pdf.addImage(imgData, 'PNG', margin, margin, pdfWidth, pdfHeight);
-    pdf.save(`SBSS_Assessment_Report_${new Date().toISOString()}.pdf`);
+    pdf.save('sbss-assessment-results.pdf');
   };
 
   return (
@@ -137,36 +147,24 @@ export default function Assessment() {
         </div>
       ) : (
         <div style={styles.card}>
-          <div id="report-content">
-            <h2>Assessment Complete</h2>
-            <p style={{ color: getColor(getScore()), fontSize: '1.3rem' }}>
-              Result: <strong>{getScore()}</strong>
+          <h2>Assessment Complete</h2>
+          <p style={{ color: getColor(getScore()), fontSize: '1.3rem' }}>
+            Result: <strong>{getScore()}</strong>
+          </p>
+          {getScore() === 'Secure' ? (
+            <p style={{ marginTop: '1rem', fontStyle: 'italic' }}>
+              ✅ Your business meets the SBSS Secure standard! The Small Business Security Standard (SBSS) is a proprietary framework designed by Silex Strategic Group to help small businesses rapidly evaluate their physical and information security posture using simple but powerful controls.
+              <br />Display this badge: <code>SBSS Certified Secure Business</code>
             </p>
-            {getScore() === 'Secure' ? (
-              <div style={{ marginTop: '1rem', textAlign: 'center' }}>
-                <p style={{ fontStyle: 'italic', marginBottom: '1rem' }}>
-                  ✅ Your business meets the SBSS Secure standard!<br />
-                  The Small Business Security Standard (SBSS) is a proprietary framework designed by Silex Strategic Group to help small businesses evaluate their security posture with ease.
-                </p>
-                <p style={{ fontStyle: 'italic', marginBottom: '1rem' }}>Display this badge:</p>
-                <img src="/badge.png" alt="SBSS Certified Secure Business" style={{ width: '120px', marginBottom: '1rem' }} />
-                <pre style={{ backgroundColor: '#222', color: '#0f0', padding: '1rem', borderRadius: '8px', textAlign: 'left', overflowX: 'auto', fontSize: '0.9rem' }}>
-                  {`<img src="https://silexstrategicgroup.com/badge.png" alt="SBSS Certified Secure Business" width="120"/>`}
-                </pre>
-                <p style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#bbb' }}>
-                  Disclaimer: The Small Business Security Standard (SBSS) is a self-assessment tool. Use of this badge implies agreement to a future audit for verification. Silex Strategic Group is not liable for any claims or damages resulting from security incidents. Timestamp: {new Date().toLocaleString()}
-                </p>
-              </div>
-            ) : (
-              <p style={{ marginTop: '1rem' }}>
-                Consider scheduling a consultation to improve your score.
-              </p>
-            )}
-          </div>
+          ) : (
+            <p style={{ marginTop: '1rem' }}>
+              Consider scheduling a consultation to improve your score.
+            </p>
+          )}
           <div style={styles.buttonRow}>
-            <button onClick={handleDownload} style={styles.button}>Download PDF</button>
             <button onClick={handleRestart} style={styles.button}>Restart</button>
             <button onClick={() => navigate('/')} style={styles.button}>Back to Home</button>
+            <button onClick={downloadPDF} style={styles.button}>Download Report</button>
           </div>
         </div>
       )}
