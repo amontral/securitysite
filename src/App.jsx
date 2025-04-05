@@ -94,9 +94,21 @@ export default function App() {
 
       {/* Branding */}
       <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', paddingTop: '100px' }}>
-        <h1 style={{ fontSize: '4.5rem', fontWeight: '900', letterSpacing: '0.03em', textShadow: '0 0 10px rgba(255,255,255,0.2)', marginBottom: '1rem' }}>
-          Silex Strategic Group
-        </h1>
+       <h1 style={{ 
+  fontSize: '4.5rem',
+  fontWeight: '900',
+  letterSpacing: '0.03em',
+  color: '#ffffff',
+  textShadow: `
+    0 0 5px rgba(173,216,230,0.6),
+    0 0 10px rgba(173,216,230,0.6),
+    0 0 15px rgba(0,191,255,0.6),
+    0 0 20px rgba(0,191,255,0.4)
+  `,
+  marginBottom: '1rem'
+}}>
+  Silex Strategic Group
+</h1>
         <p style={{ color: '#aaa', fontSize: '1.2rem' }}>
           Strategic Security. Real-World Results.
         </p>
