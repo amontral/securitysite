@@ -8,8 +8,6 @@ export default function App() {
   const [showServices, setShowServices] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
-  const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
-
   const [formData, setFormData] = useState({
     name: '',
     business: '',
@@ -58,6 +56,15 @@ export default function App() {
             opacity: { value: 0.4 },
             size: { value: { min: 1, max: 3 } }
           }
+        }}
+        style={{ 
+          position: 'fixed', 
+          top: 0, 
+          left: 0, 
+          width: '100vw', 
+          height: '100vh', 
+          zIndex: 0, 
+          pointerEvents: 'none' 
         }}
       />
 
