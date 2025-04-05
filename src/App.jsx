@@ -45,17 +45,14 @@ export default function App() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    opacity: 0.1, // increased opacity
-    filter: 'drop-shadow(0 0 60px rgba(255, 255, 255, 0.25)) blur(1px)',
-    width: '60%',
-    maxWidth: '600px',
+    opacity: 0.12,
+    filter: 'brightness(1.5) drop-shadow(0 0 30px rgba(255, 255, 255, 0.3))',
+    width: '90%',
+    maxWidth: '700px',
     zIndex: 0,
     pointerEvents: 'none',
-    transition: 'opacity 0.3s ease',
   }}
 />
-
-
 
       {/* Navigation */}
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
