@@ -126,7 +126,7 @@ export default function Assessment() {
           </p>
           {getScore() === 'Secure' ? (
             <p style={{ marginTop: '1rem', fontStyle: 'italic' }}>
-              ✅ Your business meets the SBSS Secure standard!The Small Business Security Standard (SBSS) is a proprietary framework designed by Silex Strategic Group to help small businesses rapidly evaluate their physical and information security posture using simple but powerful controls.
+              ✅ Your business meets the SBSS Secure standard! The Small Business Security Standard (SBSS) is a proprietary framework designed by Silex Strategic Group to help small businesses rapidly evaluate their physical and information security posture using simple but powerful controls.
               <br />Display this badge: <code>SBSS Certified Secure Business</code>
             </p>
           ) : (
