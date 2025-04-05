@@ -38,7 +38,6 @@ export default function App() {
       {/* Navigation */}
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
         <button onClick={() => setShowOptions(true)} style={navButtonStyle}>Start Assessment</button>
-        <Link to="/about" style={navButtonStyle}>About SBSS</Link>
         <button onClick={() => { setShowServices(!showServices); setShowContact(false); }} style={navButtonStyle}>Services</button>
         <button onClick={() => { setShowContact(!showContact); setShowServices(false); }} style={navButtonStyle}>Contact</button>
       </div>
