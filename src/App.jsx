@@ -10,21 +10,29 @@ export default function App() {
   };
 
   return (
-    <div style={{ backgroundColor: '#0c0c0e', minHeight: '100vh', color: 'white', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ backgroundColor: '#0c0c0e', minHeight: '100vh', color: 'white', position: 'relative' }}>
       <Particles
         id="tsparticles"
         init={particlesInit}
         options={{
+          fullScreen: false,
           background: { color: '#0c0c0e' },
           particles: {
-            number: { value: 50 },
-            size: { value: 3 },
-            move: { enable: true, speed: 1 },
-            opacity: { value: 0.5 },
-            links: { enable: true, color: '#ffffff' },
+            number: { value: 40 },
+            size: { value: 2 },
+            move: { enable: true, speed: 0.5 },
+            opacity: { value: 0.4 },
+            links: { enable: true, color: '#888' },
           },
         }}
-        style={{ position: 'absolute', top: 0 }}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 0,
+          width: '100%',
+          height: '100%',
+        }}
       />
 
       <nav style={{ display: 'flex', justifyContent: 'center', gap: '1rem', padding: '1.5rem', position: 'relative', zIndex: 2 }}>
@@ -33,8 +41,10 @@ export default function App() {
         <Link to="/contact" style={navLinkStyle}>Contact</Link>
       </nav>
 
-      <div style={{ textAlign: 'center', paddingTop: '8rem', zIndex: 1, position: 'relative' }}>
-        <h1 style={{ fontSize: '4rem', fontWeight: '900', textShadow: '2px 2px 8px #000' }}>Silex Strategic Group</h1>
+      <div style={{ textAlign: 'center', paddingTop: '8rem', zIndex: 2, position: 'relative' }}>
+        <h1 style={{ fontSize: '4rem', fontWeight: '900', textShadow: '2px 2px 8px #000' }}>
+          Silex Strategic Group
+        </h1>
         <p style={{ fontSize: '1.25rem', color: 'lightgray', marginTop: '1rem' }}>
           Strategic Security. Real-World Results.
         </p>
