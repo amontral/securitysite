@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Particles from 'react-tsparticles';
-import { loadFull } from 'tsparticles';
 
 export default function App() {
   const [showOptions, setShowOptions] = useState(false);
@@ -16,10 +14,6 @@ export default function App() {
   });
 
   const navigate = useNavigate();
-
-  const particlesInit = async (main) => {
-    await loadFull(main);
-  };
 
   const handleStartAssessmentClick = () => {
     setShowDisclaimer(true);
@@ -41,32 +35,6 @@ export default function App() {
 
   return (
     <div style={{ backgroundColor: '#0c0c0e', height: '100vh', color: 'white', position: 'relative', overflow: 'hidden', fontFamily: "'Segoe UI', 'Roboto', 'Arial Black', sans-serif" }}>
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={{
-          background: { color: '#0c0c0e' },
-          fullScreen: { enable: true, zIndex: 0 },
-          fpsLimit: 60,
-          particles: {
-            number: { value: 80 },
-            color: { value: '#ffffff' },
-            links: { enable: true, color: '#ffffff', distance: 130 },
-            move: { enable: true, speed: 0.6 },
-            opacity: { value: 0.4 },
-            size: { value: { min: 1, max: 3 } }
-          }
-        }}
-        style={{ 
-          position: 'fixed', 
-          top: 0, 
-          left: 0, 
-          width: '100vw', 
-          height: '100vh', 
-          zIndex: 0, 
-          pointerEvents: 'none' 
-        }}
-      />
 
       {/* Navigation */}
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
