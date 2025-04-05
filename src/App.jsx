@@ -36,26 +36,34 @@ export default function App() {
   return (
     <div style={{ backgroundColor: '#0c0c0e', height: '100vh', color: 'white', position: 'relative', overflow: 'hidden', fontFamily: "'Segoe UI', 'Roboto', 'Arial Black', sans-serif" }}>
 
-      {/* Glowing Badge Background */}
-<img
-  src="/sbss-badge.png"
-  alt=""
-  aria-hidden="true"
-  style={{
-    position: 'absolute',
-    top: '55%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    opacity: 0.07,
-    filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.15)) blur(2px)',
-    width: '70%',
-    maxWidth: '500px',
-    zIndex: 0,
-    pointerEvents: 'none',
-    userSelect: 'none'
-  }}
-/>
+      {/* Glowing Badge Background with Pulse */}
+      <img
+        src="/sbss-badge.png"
+        alt="SBSS Badge Background"
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          opacity: 0.06,
+          filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.25))',
+          width: '70%',
+          maxWidth: '600px',
+          zIndex: 0,
+          pointerEvents: 'none',
+          animation: 'pulseGlow 4s ease-in-out infinite'
+        }}
+      />
 
+      <style>
+        {`
+          @keyframes pulseGlow {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.06; }
+            50% { transform: translate(-50%, -50%) scale(1.04); opacity: 0.1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.06; }
+          }
+        `}
+      </style>
 
       {/* Navigation */}
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
