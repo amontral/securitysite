@@ -43,7 +43,7 @@ export default function App() {
     <div style={{ backgroundColor: '#0c0c0e', height: '100vh', color: 'white', position: 'relative', overflow: 'hidden', fontFamily: "'Segoe UI', 'Roboto', 'Arial Black', sans-serif" }}>
       <Particles
         id="tsparticles"
-        init={particlesInit}
+        init={async (main) => await loadFull(main)}
         options={{
           background: { color: '#0c0c0e' },
           fullScreen: { enable: true, zIndex: 0 },
