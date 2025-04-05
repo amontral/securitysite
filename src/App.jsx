@@ -1,8 +1,8 @@
 // src/App.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Particles from '@tsparticles/react';
-import { loadFull } from '@tsparticles/engine';
+import Particles from 'react-tsparticles';
+import { loadFull } from 'tsparticles';
 
 export default function App() {
   const particlesInit = async (main) => {
