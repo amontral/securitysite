@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export default function Assessment() {
   const location = useLocation();
@@ -102,6 +104,21 @@ export default function Assessment() {
     }
   };
 
+  const handleDownload = async () => {
+    const report = document.getElementById('report-content');
+    const canvas = await html2canvas(report, { scale: 2 });
+    const imgData = canvas.toDataURL('image/png');
+
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'px', format: 'a4' });
+    const margin = 20;
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth() - margin * 2;
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+    pdf.addImage(imgData, 'PNG', margin, margin, pdfWidth, pdfHeight);
+    pdf.save(`SBSS_Assessment_Report_${new Date().toISOString()}.pdf`);
+  };
+
   return (
     <div style={styles.container}>
       {index < controls.length ? (
@@ -120,42 +137,34 @@ export default function Assessment() {
         </div>
       ) : (
         <div style={styles.card}>
-          <h2>Assessment Complete</h2>
-          <p style={{ color: getColor(getScore()), fontSize: '1.3rem' }}>
-            Result: <strong>{getScore()}</strong>
-          </p>
-          {getScore() === 'Secure' ? (
-            <div style={{ marginTop: '1rem', textAlign: 'center' }}>
-              <p style={{ fontStyle: 'italic', marginBottom: '1rem' }}>
-                ✅ Your business meets the SBSS Secure standard!<br />
-                The Small Business Security Standard (SBSS) is a proprietary framework designed by Silex Strategic Group to help small businesses evaluate their security posture with ease.
-              </p>
-              <p style={{ fontStyle: 'italic', marginBottom: '1rem' }}>
-                Display this badge:
-              </p>
-              <img
-                src="/badge.png"
-                alt="SBSS Certified Secure Business"
-                style={{ width: '120px', marginBottom: '1rem' }}
-              />
-              <pre style={{
-                backgroundColor: '#222',
-                color: '#0f0',
-                padding: '1rem',
-                borderRadius: '8px',
-                textAlign: 'left',
-                overflowX: 'auto',
-                fontSize: '0.9rem'
-              }}>
-                {`<img src="https://securitysite.vercel.app/badge.png" alt="SBSS Certified Secure Business" width="120"/>`}
-              </pre>
-            </div>
-          ) : (
-            <p style={{ marginTop: '1rem' }}>
-              Consider scheduling a consultation to improve your score.
+          <div id="report-content">
+            <h2>Assessment Complete</h2>
+            <p style={{ color: getColor(getScore()), fontSize: '1.3rem' }}>
+              Result: <strong>{getScore()}</strong>
             </p>
-          )}
+            {getScore() === 'Secure' ? (
+              <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+                <p style={{ fontStyle: 'italic', marginBottom: '1rem' }}>
+                  ✅ Your business meets the SBSS Secure standard!<br />
+                  The Small Business Security Standard (SBSS) is a proprietary framework designed by Silex Strategic Group to help small businesses evaluate their security posture with ease.
+                </p>
+                <p style={{ fontStyle: 'italic', marginBottom: '1rem' }}>Display this badge:</p>
+                <img src="/badge.png" alt="SBSS Certified Secure Business" style={{ width: '120px', marginBottom: '1rem' }} />
+                <pre style={{ backgroundColor: '#222', color: '#0f0', padding: '1rem', borderRadius: '8px', textAlign: 'left', overflowX: 'auto', fontSize: '0.9rem' }}>
+                  {`<img src="https://silexstrategicgroup.com/badge.png" alt="SBSS Certified Secure Business" width="120"/>`}
+                </pre>
+                <p style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#bbb' }}>
+                  Disclaimer: The Small Business Security Standard (SBSS) is a self-assessment tool. Use of this badge implies agreement to a future audit for verification. Silex Strategic Group is not liable for any claims or damages resulting from security incidents. Timestamp: {new Date().toLocaleString()}
+                </p>
+              </div>
+            ) : (
+              <p style={{ marginTop: '1rem' }}>
+                Consider scheduling a consultation to improve your score.
+              </p>
+            )}
+          </div>
           <div style={styles.buttonRow}>
+            <button onClick={handleDownload} style={styles.button}>Download PDF</button>
             <button onClick={handleRestart} style={styles.button}>Restart</button>
             <button onClick={() => navigate('/')} style={styles.button}>Back to Home</button>
           </div>
