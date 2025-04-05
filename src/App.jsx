@@ -38,8 +38,25 @@ export default function App() {
       {/* Navigation */}
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
         <button onClick={() => setShowOptions(true)} style={navButtonStyle}>Small Business Security Assessment</button>
-        <button onClick={() => { setShowServices(!showServices); setShowContact(false); }} style={navButtonStyle}>Services</button>
-        <button onClick={() => { setShowContact(!showContact); setShowServices(false); }} style={navButtonStyle}>Contact</button>
+        <div style={{ position: 'relative' }}>
+          <button onClick={() => { setShowServices(!showServices); setShowContact(false); }} style={navButtonStyle}>Services</button>
+          {showServices && (
+            <div style={popoverStyle}>
+              <h3 style={{ margin: '0 0 0.5rem' }}>Our Services</h3>
+              <p style={{ margin: 0 }}>Physical and Information Security Consulting</p>
+            </div>
+          )}
+        </div>
+        <div style={{ position: 'relative' }}>
+          <button onClick={() => { setShowContact(!showContact); setShowServices(false); }} style={navButtonStyle}>Contact</button>
+          {showContact && (
+            <div style={popoverStyle}>
+              <h3 style={{ margin: '0 0 0.5rem' }}>Contact Us</h3>
+              <p style={{ margin: '0.25rem 0' }}>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
+              <p style={{ margin: '0.25rem 0' }}>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Branding */}
@@ -62,23 +79,6 @@ export default function App() {
           </div>
         )}
       </div>
-
-      {/* Services Section */}
-      {showServices && (
-        <div style={sectionStyle}>
-          <h2>Our Services</h2>
-          <p>Physical and Information Security Consulting</p>
-        </div>
-      )}
-
-      {/* Contact Section */}
-      {showContact && (
-        <div style={sectionStyle}>
-          <h2>Contact Us</h2>
-          <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
-          <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
-        </div>
-      )}
     </div>
   );
 }
@@ -103,12 +103,16 @@ const choiceBtnStyle = {
   cursor: 'pointer'
 };
 
-const sectionStyle = {
-  position: 'relative',
-  zIndex: 1,
-  textAlign: 'center',
-  padding: '4rem 1rem 2rem',
+const popoverStyle = {
+  position: 'absolute',
+  top: '3rem',
+  left: '50%',
+  transform: 'translateX(-50%)',
   backgroundColor: '#111',
-  marginTop: '4rem',
-  color: 'white'
+  padding: '1rem',
+  borderRadius: '8px',
+  boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+  zIndex: 2,
+  minWidth: '260px',
+  textAlign: 'left'
 };
