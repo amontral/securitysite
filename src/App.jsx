@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Particles from 'react-tsparticles';
-import { loadFull } from 'tsparticles';
+import Particles from '@tsparticles/react';
+import { loadFull } from '@tsparticles/engine';
 
 export default function App() {
   const [showOptions, setShowOptions] = useState(false);
@@ -43,7 +43,7 @@ export default function App() {
     <div style={{ backgroundColor: '#0c0c0e', height: '100vh', color: 'white', position: 'relative', overflow: 'hidden', fontFamily: "'Segoe UI', 'Roboto', 'Arial Black', sans-serif" }}>
       <Particles
         id="tsparticles"
-        init={async (main) => await loadFull(main)}
+        init={particlesInit}
         options={{
           background: { color: '#0c0c0e' },
           fullScreen: { enable: true, zIndex: 0 },
@@ -142,7 +142,6 @@ export default function App() {
   );
 }
 
-// Styles
 const navButtonStyle = {
   background: 'transparent',
   color: 'lightblue',
