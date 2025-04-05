@@ -1,4 +1,3 @@
-// src/Assessment.jsx
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -7,8 +6,61 @@ export default function Assessment() {
   const navigate = useNavigate();
   const type = new URLSearchParams(location.search).get('type');
 
-  const physicalControls = [...Array(25)].map((_, i) => `SBSS.Physical.${i + 1}: Question about physical control ${i + 1}`);
-  const infosecControls = [...Array(25)].map((_, i) => `SBSS.InfoSec.${i + 1}: Question about information security control ${i + 1}`);
+  const physicalControls = [
+    "SBSS.Physical.1: Is facility access restricted to authorized personnel?",
+    "SBSS.Physical.2: Are visitor logs maintained at all access points?",
+    "SBSS.Physical.3: Is video surveillance installed and operational?",
+    "SBSS.Physical.4: Are emergency exits clearly marked and unlocked?",
+    "SBSS.Physical.5: Are access control systems audited regularly?",
+    "SBSS.Physical.6: Is there perimeter fencing or security barriers?",
+    "SBSS.Physical.7: Are fire extinguishers clearly visible and inspected?",
+    "SBSS.Physical.8: Are sensitive areas (server rooms, HR) under extra lock?",
+    "SBSS.Physical.9: Is lighting adequate for all access points?",
+    "SBSS.Physical.10: Are all physical keys accounted for and tracked?",
+    "SBSS.Physical.11: Are ID badges required for employees?",
+    "SBSS.Physical.12: Are alarm systems in place and tested regularly?",
+    "SBSS.Physical.13: Are security patrols conducted routinely?",
+    "SBSS.Physical.14: Are physical records securely stored?",
+    "SBSS.Physical.15: Are security procedures written and accessible?",
+    "SBSS.Physical.16: Are deliveries inspected upon arrival?",
+    "SBSS.Physical.17: Is parking lot monitored or gated?",
+    "SBSS.Physical.18: Are emergency evacuation plans posted?",
+    "SBSS.Physical.19: Are first aid kits accessible and stocked?",
+    "SBSS.Physical.20: Are unattended workspaces kept secure?",
+    "SBSS.Physical.21: Is access to roof and maintenance areas restricted?",
+    "SBSS.Physical.22: Are unused entry points sealed or alarmed?",
+    "SBSS.Physical.23: Are doors and windows checked daily?",
+    "SBSS.Physical.24: Are employee terminations followed by access revocation?",
+    "SBSS.Physical.25: Are monthly physical security checks documented?"
+  ];
+
+  const infosecControls = [
+    "SBSS.InfoSec.1: Are all systems protected by strong passwords?",
+    "SBSS.InfoSec.2: Is multifactor authentication enabled where possible?",
+    "SBSS.InfoSec.3: Are antivirus/antimalware solutions installed and updated?",
+    "SBSS.InfoSec.4: Are backups performed regularly and tested?",
+    "SBSS.InfoSec.5: Is sensitive data encrypted at rest and in transit?",
+    "SBSS.InfoSec.6: Are firewall and router settings configured securely?",
+    "SBSS.InfoSec.7: Are security patches applied within 30 days?",
+    "SBSS.InfoSec.8: Are employee accounts reviewed at least quarterly?",
+    "SBSS.InfoSec.9: Are employees trained on phishing and social engineering?",
+    "SBSS.InfoSec.10: Is access to confidential info based on role (least privilege)?",
+    "SBSS.InfoSec.11: Are audit logs maintained and reviewed?",
+    "SBSS.InfoSec.12: Are remote access tools secured and monitored?",
+    "SBSS.InfoSec.13: Is removable media usage restricted or monitored?",
+    "SBSS.InfoSec.14: Are old or unused accounts disabled or deleted?",
+    "SBSS.InfoSec.15: Is an incident response plan in place?",
+    "SBSS.InfoSec.16: Are third-party vendors reviewed for cybersecurity?",
+    "SBSS.InfoSec.17: Are employees required to lock screens when away?",
+    "SBSS.InfoSec.18: Are security responsibilities documented?",
+    "SBSS.InfoSec.19: Are unauthorized software installations restricted?",
+    "SBSS.InfoSec.20: Are network drives and shares permissioned appropriately?",
+    "SBSS.InfoSec.21: Are mobile devices secured and monitored?",
+    "SBSS.InfoSec.22: Are employee offboarding steps clearly documented?",
+    "SBSS.InfoSec.23: Are secure file-sharing methods used for external parties?",
+    "SBSS.InfoSec.24: Is DNS security or filtering enabled?",
+    "SBSS.InfoSec.25: Are internal systems segmented (e.g., guest vs production)?"
+  ];
 
   const controls = type === 'physical' ? physicalControls : infosecControls;
   const [index, setIndex] = useState(0);
@@ -74,8 +126,8 @@ export default function Assessment() {
           </p>
           {getScore() === 'Secure' ? (
             <p style={{ marginTop: '1rem', fontStyle: 'italic' }}>
-              ✅ Your business meets the SBSS Secure standard!
-              <br />Display this: <code>SBSS Certified Secure Business</code>
+              ✅ Your business meets the SBSS Secure standard!The Small Business Security Standard (SBSS) is a proprietary framework designed by Silex Strategic Group to help small businesses rapidly evaluate their physical and information security posture using simple but powerful controls.
+              <br />Display this badge: <code>SBSS Certified Secure Business</code>
             </p>
           ) : (
             <p style={{ marginTop: '1rem' }}>
@@ -117,7 +169,8 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     gap: '2rem',
-    marginTop: '1.5rem'
+    marginTop: '1.5rem',
+    flexWrap: 'wrap'
   },
   button: {
     backgroundColor: '#fff',
