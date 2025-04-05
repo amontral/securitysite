@@ -36,35 +36,6 @@ export default function App() {
   return (
     <div style={{ backgroundColor: '#0c0c0e', height: '100vh', color: 'white', position: 'relative', overflow: 'hidden', fontFamily: "'Segoe UI', 'Roboto', 'Arial Black', sans-serif" }}>
 
-      {/* Glowing Badge Background with Pulse */}
-      <img
-        src="/sbss-badge.png"
-        alt="SBSS Badge Background"
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          opacity: 0.06,
-          filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.25))',
-          width: '70%',
-          maxWidth: '600px',
-          zIndex: 0,
-          pointerEvents: 'none',
-          animation: 'pulseGlow 4s ease-in-out infinite'
-        }}
-      />
-
-      <style>
-        {`
-          @keyframes pulseGlow {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.06; }
-            50% { transform: translate(-50%, -50%) scale(1.04); opacity: 0.1; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.06; }
-          }
-        `}
-      </style>
-
       {/* Navigation */}
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
         <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Small Business Security Assessment</button>
@@ -89,8 +60,36 @@ export default function App() {
         </div>
       </div>
 
+      {/* Glowing Badge Background with Pulse */}
+      <img
+        src="/sbss-badge.png"
+        alt="SBSS Badge Background"
+        style={{
+          position: 'absolute',
+          top: '130px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          opacity: 0.08,
+          filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.25))',
+          width: '120px',
+          zIndex: 0,
+          pointerEvents: 'none',
+          animation: 'pulseGlow 4s ease-in-out infinite'
+        }}
+      />
+
+      <style>
+        {`
+          @keyframes pulseGlow {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.08; }
+            50% { transform: translateX(-50%) scale(1.08); opacity: 0.12; }
+            100% { transform: translateX(-50%) scale(1); opacity: 0.08; }
+          }
+        `}
+      </style>
+
       {/* Branding */}
-      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', paddingTop: '100px' }}>
+      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', paddingTop: '60px' }}>
         <h1 style={{ fontSize: '4.5rem', fontWeight: '900', letterSpacing: '0.03em', textShadow: '0 0 10px rgba(255,255,255,0.9)', marginBottom: '1rem' }}>
           Silex Strategic Group
         </h1>
