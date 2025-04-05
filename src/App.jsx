@@ -75,9 +75,9 @@ export default function App() {
           alt="SBSS Badge Background"
           style={{
             marginTop: '2rem',
-            opacity: 0.08,
-            filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.25))',
-            width: '150px',
+            opacity: 0.25,
+            filter: 'drop-shadow(0 0 35px rgba(255, 255, 255, 0.4))',
+            width: '180px',
             animation: 'pulseGlow 4s ease-in-out infinite',
             pointerEvents: 'none'
           }}
@@ -86,9 +86,9 @@ export default function App() {
         <style>
           {`
             @keyframes pulseGlow {
-              0% { transform: scale(1); opacity: 0.08; }
-              50% { transform: scale(1.1); opacity: 0.12; }
-              100% { transform: scale(1); opacity: 0.08; }
+              0% { transform: scale(1); opacity: 0.25; }
+              50% { transform: scale(1.1); opacity: 0.35; }
+              100% { transform: scale(1); opacity: 0.25; }
             }
           `}
         </style>
