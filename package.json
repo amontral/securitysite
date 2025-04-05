@@ -6,13 +6,13 @@
     "build": "vite build",
     "preview": "vite preview"
   },
- "dependencies": {
+"dependencies": {
   "react": "^18.2.0",
   "react-dom": "^18.2.0",
   "react-router-dom": "^6.17.0",
   "jspdf": "^2.5.1",
-  "@tsparticles/engine": "^2.10.1",
-  "@tsparticles/react": "^2.10.1"
+  "@tsparticles/engine": "2.9.3",
+  "@tsparticles/react": "2.9.3"
 },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
