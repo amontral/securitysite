@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Particles from '@tsparticles/react';
-import { loadFull } from '@tsparticles/engine';
+import Particles from 'react-tsparticles';
+import { loadFull } from 'tsparticles';
 
 export default function App() {
   const [showOptions, setShowOptions] = useState(false);
