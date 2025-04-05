@@ -37,7 +37,7 @@ export default function App() {
     <div style={{ backgroundColor: '#0c0c0e', height: '100vh', color: 'white', position: 'relative', overflow: 'hidden', fontFamily: "'Segoe UI', 'Roboto', 'Arial Black', sans-serif" }}>
 
       {/* Glowing Badge Background */}
-   <img
+<img
   src="/sbss-badge-transparent.png"
   alt="SBSS Badge Background"
   style={{
@@ -45,14 +45,16 @@ export default function App() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    opacity: 0.08,
-    filter: 'drop-shadow(0 0 25px rgba(255, 255, 255, 0.15)) blur(1px)',
+    opacity: 0.1, // increased opacity
+    filter: 'drop-shadow(0 0 60px rgba(255, 255, 255, 0.25)) blur(1px)',
     width: '60%',
-    maxWidth: '500px',
+    maxWidth: '600px',
     zIndex: 0,
     pointerEvents: 'none',
+    transition: 'opacity 0.3s ease',
   }}
 />
+
 
 
       {/* Navigation */}
