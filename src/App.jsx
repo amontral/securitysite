@@ -38,7 +38,7 @@ export default function App() {
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         padding: '1.5rem 1rem',
         flexWrap: 'wrap',
         backgroundColor: '#f8f9fa',
