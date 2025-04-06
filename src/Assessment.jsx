@@ -6,6 +6,8 @@ export default function Assessment() {
   const navigate = useNavigate();
   const type = new URLSearchParams(location.search).get('type');
 
+  const disclaimerInfo = JSON.parse(localStorage.getItem('sbss_disclaimer')) || {};
+
   const physicalControls = [
     'SBSS.Physical.1: Entry points are secured with commercial-grade locks.',
     'SBSS.Physical.2: Security cameras are installed at all exterior entrances.',
@@ -67,101 +69,99 @@ export default function Assessment() {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
 
-  const handleAnswer = (value) => {
-    setAnswers([...answers, value]);
+  const handleAnswer = (response) => {
+    setAnswers((prev) => [...prev, response]);
     setIndex(index + 1);
   };
 
-  const getScore = () => {
-    const yesCount = answers.filter((a) => a === 'yes').length;
-    const pct = (yesCount / controls.length) * 100;
-    if (pct >= 85) return 'Secure';
-    if (pct >= 60) return 'Needs Improvement';
-    return 'At-Risk';
-  };
-
-  const getColor = (score) => {
-    if (score === 'Secure') return 'lightgreen';
-    if (score === 'Needs Improvement') return 'gold';
-    return 'tomato';
-  };
-
-  const getMessage = (score) => {
-    if (score === 'Secure') {
-      return "Your environment appears secure! Consider applying for SBSS Certification to officially validate and showcase your strong security posture.";
+  const handleBack = () => {
+    if (index > 0) {
+      const updatedAnswers = [...answers];
+      updatedAnswers.pop();
+      setAnswers(updatedAnswers);
+      setIndex(index - 1);
     }
-    if (score === 'Needs Improvement') {
-      return "Your environment shows promise, but improvements are needed. Review the controls marked 'No' and consider our support.";
-    }
-    return "Your environment is at risk. We recommend scheduling a consultation to address key security gaps and develop a resilience strategy.";
   };
 
-  const restart = () => {
+  const handleRestart = () => {
     setIndex(0);
     setAnswers([]);
   };
 
+  const getScore = () => {
+    const yesCount = answers.filter((a) => a === 'yes').length;
+    const percentage = (yesCount / controls.length) * 100;
+    if (percentage >= 85) return 'Secure';
+    if (percentage >= 60) return 'Needs Improvement';
+    return 'At-Risk';
+  };
+
+  const getMessage = (score) => {
+    switch (score) {
+      case 'Secure':
+        return "Your environment appears secure! Consider applying for SBSS Certification to officially validate and showcase your strong security posture.";
+      case 'Needs Improvement':
+        return "Your environment shows promise, but improvements are needed. Consider reviewing the controls you answered 'No' to and building a roadmap.";
+      case 'At-Risk':
+        return "Your environment is at risk. We recommend scheduling a consultation to address key security gaps and develop a resilience strategy.";
+      default:
+        return "Assessment complete.";
+    }
+  };
+
+  const getColor = (score) => {
+    switch (score) {
+      case 'Secure': return 'lightgreen';
+      case 'Needs Improvement': return 'yellow';
+      case 'At-Risk': return 'red';
+      default: return 'white';
+    }
+  };
+
   return (
-    <div style={{ backgroundColor: '#0c0c0e', color: 'white', padding: '2rem', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#0c0c0e', minHeight: '100vh', color: 'white', fontFamily: 'Segoe UI, sans-serif', padding: '2rem' }}>
       {index < controls.length ? (
-        <div style={{
-          backgroundColor: '#111',
-          padding: '2rem',
-          borderRadius: '12px',
-          boxShadow: '0 0 20px rgba(0,0,0,0.5)',
-          maxWidth: '700px',
-          margin: '0 auto'
-        }}>
-          <h2>{controls[index].split(':')[0]}</h2>
+        <div style={{ backgroundColor: '#111', padding: '2rem', borderRadius: '12px', maxWidth: '700px', margin: '0 auto' }}>
+          <h2 style={{ color: '#aadfff' }}>{controls[index].split(':')[0]}</h2>
           <p>{controls[index].split(':')[1]}</p>
-          <div style={{ margin: '1rem 0' }}>
-            <progress value={index + 1} max={controls.length} style={{ width: '100%' }} />
-            <p style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>{index + 1} of {controls.length}</p>
-          </div>
-          <div>
+          <progress value={index + 1} max={controls.length} style={{ width: '100%', marginTop: '1rem' }} />
+          <p style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>{index + 1} of {controls.length}</p>
+          <div style={{ marginTop: '1rem' }}>
             <button onClick={() => handleAnswer('yes')} style={{ marginRight: '1rem' }}>Yes</button>
             <button onClick={() => handleAnswer('no')}>No</button>
           </div>
+          {index > 0 && (
+            <button onClick={handleBack} style={{ marginTop: '1rem' }}>Back</button>
+          )}
         </div>
       ) : (
-        <div style={{
-          backgroundColor: '#111',
-          padding: '2rem',
-          borderRadius: '12px',
-          boxShadow: '0 0 20px rgba(0,0,0,0.5)',
-          maxWidth: '700px',
-          margin: '0 auto',
-          textAlign: 'center'
-        }}>
+        <div style={{ backgroundColor: '#111', padding: '2rem', borderRadius: '12px', maxWidth: '800px', margin: '2rem auto', textAlign: 'center' }}>
           <h2>Assessment Complete</h2>
-          <p style={{ color: getColor(getScore()), fontSize: '1.25rem' }}>
-            Result: <strong>{getScore()}</strong>
-          </p>
+          <p style={{ color: getColor(getScore()), fontSize: '1.2rem' }}>Result: <strong>{getScore()}</strong></p>
           <p style={{ marginTop: '1rem' }}>{getMessage(getScore())}</p>
 
-          {getScore() !== 'Secure' && (
-            <div style={{ marginTop: '1.5rem' }}>
-              <a
-                href="https://calendly.com/silexstrategicgroup-oek"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  backgroundColor: '#aadfff',
-                  color: '#000',
-                  fontWeight: 'bold',
-                  padding: '0.75rem 1.25rem',
-                  borderRadius: '6px',
-                  textDecoration: 'none',
-                  display: 'inline-block'
-                }}
-              >
-                Schedule a Consultation
-              </a>
-            </div>
-          )}
+          <div style={{ marginTop: '1.5rem' }}>
+            <a
+              href="https://calendly.com/silexstrategicgroup-oek"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                backgroundColor: '#aadfff',
+                color: '#000',
+                fontWeight: 'bold',
+                padding: '0.75rem 1.25rem',
+                borderRadius: '6px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                marginBottom: '1rem'
+              }}
+            >
+              Schedule a Consultation
+            </a>
+          </div>
 
           <div style={{ marginTop: '2rem' }}>
-            <button onClick={restart}>Restart</button>
+            <button onClick={handleRestart}>Restart</button>
             <button onClick={() => navigate('/')} style={{ marginLeft: '1rem' }}>Back to Home</button>
           </div>
         </div>
