@@ -38,6 +38,29 @@ export default function App() {
       backgroundRepeat: 'repeat',
       minHeight: '100vh'
     }}>
+      {/* Top Navigation */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '2rem',
+        padding: '1.5rem 1rem',
+        flexWrap: 'wrap'
+      }}>
+        <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Small Business Security Assessment</button>
+        <button onClick={() => navigate('/services')} style={navButtonStyle}>Services</button>
+        <div style={{ position: 'relative' }}>
+          <button onClick={() => setShowContact(!showContact)} style={navButtonStyle}>Contact</button>
+          {showContact && (
+            <div style={popoverStyle}>
+              <h3>Contact Us</h3>
+              <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
+              <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Main Content */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
         <section style={sectionStyle}>
           <h1 style={headingStyle}>Silex Strategic Group</h1>
@@ -125,7 +148,7 @@ export default function App() {
   );
 }
 
-// Styles
+// Reusable styles
 const navButtonStyle = {
   background: 'transparent',
   color: 'lightblue',
@@ -135,6 +158,49 @@ const navButtonStyle = {
   fontSize: '1rem',
   cursor: 'pointer',
   textDecoration: 'none'
+};
+
+const sectionStyle = {
+  textAlign: 'center',
+  padding: '3rem 1rem 1rem'
+};
+
+const headingStyle = {
+  fontSize: '3rem',
+  fontWeight: '900',
+  letterSpacing: '0.03em',
+  textShadow: '0 0 10px rgba(255,255,255,0.9)',
+  marginBottom: '0.5rem'
+};
+
+const contentSection = {
+  marginBottom: '2.5rem',
+  padding: '1.5rem',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  borderRadius: '8px'
+};
+
+const subheading = {
+  fontSize: '1.5rem',
+  fontWeight: 'bold',
+  color: '#aadfff',
+  marginBottom: '0.75rem'
+};
+
+const paragraph = {
+  fontSize: '1rem',
+  color: '#ccc'
+};
+
+const closeButton = {
+  position: 'absolute',
+  top: '1rem',
+  right: '1rem',
+  background: 'transparent',
+  border: 'none',
+  color: 'white',
+  fontSize: '1.2rem',
+  cursor: 'pointer'
 };
 
 const modalOverlay = {
@@ -162,45 +228,16 @@ const modalBox = {
   boxShadow: '0 0 20px rgba(0,0,0,0.5)'
 };
 
-const closeButton = {
+const popoverStyle = {
   position: 'absolute',
-  top: '1rem',
-  right: '1rem',
-  background: 'transparent',
-  border: 'none',
-  color: 'white',
-  fontSize: '1.2rem',
-  cursor: 'pointer'
-};
-
-const sectionStyle = {
-  textAlign: 'center',
-  padding: '3rem 1rem 1rem'
-};
-
-const contentSection = {
-  marginBottom: '2.5rem',
-  padding: '1.5rem',
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  borderRadius: '8px'
-};
-
-const headingStyle = {
-  fontSize: '3rem',
-  fontWeight: '900',
-  letterSpacing: '0.03em',
-  textShadow: '0 0 10px rgba(255,255,255,0.9)',
-  marginBottom: '0.5rem'
-};
-
-const subheading = {
-  fontSize: '1.5rem',
-  fontWeight: 'bold',
-  color: '#aadfff',
-  marginBottom: '0.75rem'
-};
-
-const paragraph = {
-  fontSize: '1rem',
-  color: '#ccc'
+  top: '3rem',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  backgroundColor: '#111',
+  padding: '1rem',
+  borderRadius: '8px',
+  boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+  zIndex: 2,
+  minWidth: '260px',
+  textAlign: 'left'
 };
