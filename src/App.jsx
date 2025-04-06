@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function App() {
@@ -24,79 +24,88 @@ export default function App() {
 
   const handleCloseDisclaimer = () => setShowDisclaimer(false);
 
-  useEffect(() => {
-    window.handleStartAssessmentClick = handleStartAssessmentClick;
-  }, []);
-
   return (
     <div style={{
       backgroundColor: '#0c0c0e',
+      color: 'white',
+      fontFamily: "'Segoe UI', 'Roboto', sans-serif",
       backgroundImage: "url('/noise-texture.png')",
       backgroundSize: 'cover',
       backgroundRepeat: 'repeat',
-      color: 'white',
-      fontFamily: "'Segoe UI', 'Roboto', sans-serif",
       minHeight: '100vh'
     }}>
-      {/* Banner */}
+      {/* Navigation */}
       <div style={{
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#111',
-        padding: '1rem 2rem',
-        borderBottom: '1px solid #333'
+        justifyContent: 'center',
+        gap: '1rem',
+        padding: '1.5rem 1rem',
+        flexWrap: 'wrap'
       }}>
-        <img src="/ssg-logo.png" alt="SSG Logo" style={{ height: '40px' }} />
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Assessment</button>
-          <button onClick={() => navigate('/services')} style={navButtonStyle}>Services</button>
+        <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Assessment</button>
+        <button onClick={() => navigate('/services')} style={navButtonStyle}>Services</button>
+        <button onClick={() => window.open('https://calendly.com/silexstrategicgroup-oek', '_blank')} style={navButtonStyle}>Schedule Consult</button>
+        <div style={{ position: 'relative' }}>
           <button onClick={() => setShowContact(!showContact)} style={navButtonStyle}>Contact</button>
+          {showContact && (
+            <div style={popoverStyle}>
+              <h3>Contact Us</h3>
+              <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
+              <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
+            </div>
+          )}
         </div>
       </div>
 
-      {showContact && (
-        <div style={popoverStyle}>
-          <h3>Contact Us</h3>
-          <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
-          <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
-        </div>
-      )}
+      {/* Hero Section */}
+      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem' }}>
+        <h1 style={{
+          fontSize: '4rem',
+          fontWeight: '900',
+          letterSpacing: '0.03em',
+          textShadow: '0 0 10px rgba(255,255,255,0.9)'
+        }}>
+          Silex Strategic Group
+        </h1>
+        <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
+        <img
+          src="/sbss-badge.png"
+          alt="SBSS Badge Background"
+          className="pulse-glow"
+          style={{
+            marginTop: '2rem',
+            opacity: 0.25,
+            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
+            width: '180px',
+            pointerEvents: 'none'
+          }}
+        />
+      </div>
 
+      {/* Content Sections */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
-        <section style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-          <h1 style={headingStyle}>Silex Strategic Group</h1>
-          <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
-          <img
-            src="/sbss-badge.png"
-            alt="SBSS Badge Background"
-            className="pulse-glow"
-            style={{
-              marginTop: '2rem',
-              opacity: 0.5,
-              filter: 'drop-shadow(0 0 65px rgba(255, 255, 255, 0.8))',
-              width: '200px',
-              pointerEvents: 'none'
-            }}
-          />
-        </section>
-
-        <section style={contentSection}>
+        <section style={sectionStyle}>
           <h2 style={subheading}>What We Do</h2>
-          <p style={paragraph}>Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers.</p>
+          <p style={paragraph}>
+            Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers. Our approach is grounded, practical, and aligned with real-world threats.
+          </p>
         </section>
 
-        <section style={contentSection}>
+        <section style={sectionStyle}>
           <h2 style={subheading}>The SBSS Framework</h2>
-          <p style={paragraph}>The Small Business Security Standard (SBSS) simplifies enterprise-grade risk principles into actionable controls for small business environments.</p>
+          <p style={paragraph}>
+            The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments. The SBSS assessment quickly identifies gaps and provides visual scoring to inform next steps.
+          </p>
         </section>
 
-        <section style={contentSection}>
+        <section style={sectionStyle}>
           <h2 style={subheading}>Why Comprehensive Security?</h2>
-          <p style={paragraph}>Modern threats target both physical and digital assets. We advocate layered, end-to-end protection—from locked doors to encrypted networks.</p>
+          <p style={paragraph}>
+            Modern threats target both physical and digital assets. A cyberattack may start with a stolen keycard or an untrained employee. That’s why we advocate layered, end-to-end protection—from locked doors to encrypted networks—so your entire business ecosystem is covered.
+          </p>
         </section>
 
-        <section style={contentSection}>
+        <section style={sectionStyle}>
           <h2 style={subheading}>Explore Our Services</h2>
           <p style={{ ...paragraph, marginBottom: '1rem' }}>We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.</p>
           <button onClick={() => navigate('/services')} style={navButtonStyle}>View Our Services</button>
@@ -109,6 +118,9 @@ export default function App() {
           <div style={modalBox}>
             <button onClick={handleCloseDisclaimer} style={closeButton}>&times;</button>
             <h2>Before You Begin</h2>
+            <p style={{ fontSize: '0.95rem', color: '#ccc' }}>
+              The Small Business Security Assessment is a self-evaluation tool. By proceeding, you agree that:
+            </p>
             <ul style={{ fontSize: '0.85rem', textAlign: 'left', color: '#ccc' }}>
               <li>No liability is assumed by Silex Strategic Group.</li>
               <li>Badge usage may require validation and audit.</li>
@@ -127,7 +139,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Assessment Type Modal */}
+      {/* Assessment Option Modal */}
       {showOptions && (
         <div style={modalOverlay}>
           <div style={modalBox}>
@@ -139,21 +151,11 @@ export default function App() {
           </div>
         </div>
       )}
-
-      <style>{`
-        .pulse-glow {
-          animation: subtlePulse 4s infinite;
-        }
-        @keyframes subtlePulse {
-          0% { transform: scale(1); opacity: 0.5; }
-          50% { transform: scale(1.08); opacity: 0.75; }
-          100% { transform: scale(1); opacity: 0.5; }
-        }
-      `}</style>
     </div>
   );
 }
 
+// Reusable styles
 const navButtonStyle = {
   background: 'transparent',
   color: 'lightblue',
@@ -165,33 +167,25 @@ const navButtonStyle = {
   textDecoration: 'none'
 };
 
-const headingStyle = {
-  fontSize: '3rem',
-  fontWeight: '900',
-  letterSpacing: '0.03em',
-  textShadow: '0 0 10px rgba(255,255,255,0.9)',
-  marginBottom: '0.5rem',
-  textAlign: 'center'
-};
-
-const contentSection = {
+const sectionStyle = {
   marginBottom: '2.5rem',
   padding: '1.5rem',
   backgroundColor: 'rgba(0,0,0,0.5)',
-  borderRadius: '8px',
-  textAlign: 'center'
+  borderRadius: '8px'
 };
 
 const subheading = {
   fontSize: '1.5rem',
   fontWeight: 'bold',
   color: '#aadfff',
-  marginBottom: '0.75rem'
+  marginBottom: '0.75rem',
+  textAlign: 'center'
 };
 
 const paragraph = {
   fontSize: '1rem',
-  color: '#ccc'
+  color: '#ccc',
+  textAlign: 'center'
 };
 
 const closeButton = {
@@ -232,8 +226,9 @@ const modalBox = {
 
 const popoverStyle = {
   position: 'absolute',
-  top: '4.5rem',
-  right: '2rem',
+  top: '3rem',
+  left: '50%',
+  transform: 'translateX(-50%)',
   backgroundColor: '#111',
   padding: '1rem',
   borderRadius: '8px',
