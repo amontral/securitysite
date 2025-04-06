@@ -10,19 +10,19 @@ export default function App() {
 
   const navigate = useNavigate();
 
-  const handleStartAssessmentClick = () => setShowDisclaimer(true);
+  const handleStartAssessmentClick = () => {
+    const disclaimerAccepted = localStorage.getItem('sbss_disclaimer');
+    if (disclaimerAccepted) {
+      setShowOptions(true);
+    } else {
+      setShowDisclaimer(true);
+    }
+  };
 
   const handleDisclaimerSubmit = async (e) => {
     e.preventDefault();
-
     if (formData.name && formData.business && formData.email && formData.agreed) {
-      const payload = {
-        name: formData.name,
-        business: formData.business,
-        email: formData.email,
-        agreed: formData.agreed
-      };
-
+      const payload = { ...formData };
       try {
         await fetch("https://formspree.io/f/xwplwkpk", {
           method: "POST",
@@ -36,7 +36,7 @@ export default function App() {
         localStorage.setItem('sbss_disclaimer', JSON.stringify({ ...payload, timestamp: new Date().toISOString() }));
         setShowDisclaimer(false);
         setShowOptions(true);
-      } catch (error) {
+      } catch {
         alert("Failed to send form. Please try again.");
       }
     } else {
@@ -46,18 +46,22 @@ export default function App() {
 
   return (
     <div style={{ backgroundColor: '#0c0c0e', color: 'white', minHeight: '100vh', fontFamily: "'Segoe UI', sans-serif" }}>
-      {/* Fixed Navigation Bar */}
-      <div style={{ backgroundColor: '#f8f9fa', color: '#0c0c0e', borderBottom: '1px solid rgba(0,0,0,0.1)', padding: '1rem', position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '900px', margin: '0 auto' }}>
+      <div style={{
+        backgroundColor: '#f8f9fa', color: '#0c0c0e',
+        borderBottom: '1px solid rgba(0,0,0,0.1)',
+        padding: '1rem', position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000
+      }}>
+        <div style={{
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          maxWidth: '900px', margin: '0 auto'
+        }}>
           <h2 style={{ margin: 0, fontSize: '1.2rem' }}>Silex Strategic Group</h2>
           <div
             className="menu-toggle"
             onClick={() => setMenuOpen(!menuOpen)}
             style={{
-              cursor: 'pointer',
-              fontSize: '1.5rem',
-              display: 'block',
-              marginRight: '1rem' // moved further left for better mobile visibility
+              cursor: 'pointer', fontSize: '1.5rem',
+              display: 'block', marginRight: '1.5rem'
             }}
           >
             {menuOpen ? '✕' : '☰'}
@@ -80,19 +84,24 @@ export default function App() {
         )}
       </div>
 
-      {/* Spacer to prevent content being hidden behind fixed nav */}
       <div style={{ height: '100px' }}></div>
 
-      {/* Hero Section */}
       <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem', backgroundColor: '#1f2a35' }}>
-        <h1 style={{ fontSize: '4rem', fontWeight: '900', letterSpacing: '0.03em', textShadow: '0 0 10px rgba(255,255,255,0.9)' }}>
+        <h1 style={{
+          fontSize: '4rem', fontWeight: '900',
+          letterSpacing: '0.03em', textShadow: '0 0 10px rgba(255,255,255,0.9)'
+        }}>
           Silex Strategic Group
         </h1>
         <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
         <img
           src="/sbss-badge.png"
           alt="SBSS Badge Background"
-          style={{ marginTop: '2rem', opacity: 0.25, filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))', width: '180px', pointerEvents: 'none' }}
+          style={{
+            marginTop: '2rem', opacity: 0.25,
+            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
+            width: '180px', pointerEvents: 'none'
+          }}
         />
       </div>
 
