@@ -81,7 +81,8 @@ export default function App() {
 
         <section style={sectionStyle}>
           <h2>Explore Our Services</h2>
-          <p>We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping. <button style={{ ...navButtonStyle, marginLeft: '0.5rem' }} onClick={handleStartAssessmentClick}>Take the SBSS Assessment</button></p>
+          <p>We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping. <button style={{ ...navButtonStyle, marginLeft: '0.5rem' }} onClick={() => navigate('/services')}>View Our Services</button>
+</p>
         </section>
       </div>
 
