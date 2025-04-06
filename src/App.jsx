@@ -1,4 +1,3 @@
-// Full App.jsx with all restored homepage content + Contact popover working + Disclaimer + Assessment flow
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,16 +16,12 @@ export default function App() {
 
   const handleDisclaimerSubmit = async (e) => {
     e.preventDefault();
-
     if (formData.name && formData.business && formData.email && formData.agreed) {
       const payload = { ...formData };
       try {
         await fetch("https://formspree.io/f/xwplwkpk", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
           body: JSON.stringify(payload)
         });
         localStorage.setItem('sbss_disclaimer', JSON.stringify({ ...payload, timestamp: new Date().toISOString() }));
@@ -42,11 +37,13 @@ export default function App() {
 
   return (
     <div style={{ backgroundColor: '#0c0c0e', color: 'white', minHeight: '100vh', fontFamily: "'Segoe UI', sans-serif" }}>
-      {/* Nav and Menu */}
+      {/* Navbar */}
       <div style={{ backgroundColor: '#f8f9fa', color: '#0c0c0e', borderBottom: '1px solid rgba(0,0,0,0.1)', padding: '1rem', position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '900px', margin: '0 auto' }}>
           <h2 style={{ margin: 0, fontSize: '1.2rem' }}>Silex Strategic Group</h2>
-          <div onClick={() => setMenuOpen(!menuOpen)} style={{ cursor: 'pointer', fontSize: '1.5rem', marginRight: '2rem' }}>{menuOpen ? '✕' : '☰'}</div>
+          <div onClick={() => setMenuOpen(!menuOpen)} style={{ cursor: 'pointer', fontSize: '1.5rem', marginRight: '2rem' }}>
+            {menuOpen ? '✕' : '☰'}
+          </div>
         </div>
         {menuOpen && (
           <div style={{ textAlign: 'center', marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -75,6 +72,19 @@ export default function App() {
         )}
       </div>
 
+      {/* Hero Section */}
+      <div style={{ paddingTop: '7rem', textAlign: 'center', padding: '4rem 1rem 2rem', backgroundColor: '#1f2a35' }}>
+        <h1 style={{ fontSize: '4rem', fontWeight: '900', letterSpacing: '0.03em', textShadow: '0 0 10px rgba(255,255,255,0.9)' }}>
+          Silex Strategic Group
+        </h1>
+        <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
+        <img
+          src="/sbss-badge.png"
+          alt="SBSS Badge Background"
+          style={{ marginTop: '2rem', opacity: 0.25, filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))', width: '180px', pointerEvents: 'none' }}
+        />
+      </div>
+
       {/* Disclaimer Modal */}
       {showDisclaimer && (
         <div style={modalOverlay}>
@@ -95,7 +105,7 @@ export default function App() {
               <label>
                 <input type="checkbox" checked={formData.agreed} onChange={(e) => setFormData({ ...formData, agreed: e.target.checked })} /> I agree to the disclaimer terms
               </label>
-              <button type="submit" style={navButtonStyleLight}>Continue to Assessment</button>
+              <button type="submit" style={{ ...navButtonStyleLight, backgroundColor: '#4FC3F7', color: 'white', fontWeight: 'bold' }}>Continue to Assessment</button>
             </form>
           </div>
         </div>
@@ -105,10 +115,10 @@ export default function App() {
       {showOptions && (
         <div style={modalOverlay}>
           <div style={modalBox}>
-            <h3 style={{ color: 'lightgray' }}>Choose Assessment Type</h3>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
-              <button onClick={() => navigate('/assessment?type=physical')} style={navButtonStyleLight}>Physical Security</button>
-              <button onClick={() => navigate('/assessment?type=infosec')} style={navButtonStyleLight}>Information Security</button>
+            <h3 style={{ color: 'lightgray', fontSize: '1.4rem' }}>Choose Assessment Type</h3>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
+              <button onClick={() => navigate('/assessment?type=physical')} style={{ ...navButtonStyleLight, backgroundColor: '#4FC3F7', color: 'white', fontWeight: 'bold' }}>Physical Security</button>
+              <button onClick={() => navigate('/assessment?type=infosec')} style={{ ...navButtonStyleLight, backgroundColor: '#4FC3F7', color: 'white', fontWeight: 'bold' }}>Information Security</button>
             </div>
           </div>
         </div>
