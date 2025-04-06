@@ -38,13 +38,19 @@ export default function App() {
       backgroundRepeat: 'repeat',
       minHeight: '100vh'
     }}>
-      {/* Top Navigation */}
+      {/* Banner Nav */}
       <div style={{
+        background: 'rgba(25, 25, 30, 0.85)',
+        backdropFilter: 'blur(8px)',
+        padding: '1rem 2rem',
         display: 'flex',
         justifyContent: 'center',
+        alignItems: 'center',
         gap: '2rem',
-        padding: '1.5rem 1rem',
-        flexWrap: 'wrap'
+        boxShadow: '0 2px 10px rgba(0,0,0,0.4)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 20
       }}>
         <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Small Business Security Assessment</button>
         <button onClick={() => navigate('/services')} style={navButtonStyle}>Services</button>
@@ -60,49 +66,59 @@ export default function App() {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Hero Section */}
+      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem' }}>
+        <h1 style={{
+          fontSize: '3.5rem',
+          fontWeight: '900',
+          letterSpacing: '0.03em',
+          textShadow: '0 0 10px rgba(255,255,255,0.9)'
+        }}>
+          Silex Strategic Group
+        </h1>
+        <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
+        <img
+          src="/sbss-badge.png"
+          alt="SBSS Badge"
+          style={{
+            marginTop: '2rem',
+            opacity: 0.25,
+            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
+            width: '180px',
+            animation: 'pulseGlow 4s ease-in-out infinite',
+            pointerEvents: 'none'
+          }}
+        />
+      </div>
+
+      {/* Content Sections */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
-        <section style={sectionStyle}>
-          <h1 style={headingStyle}>Silex Strategic Group</h1>
-          <p style={{ color: '#aaa', fontSize: '1.2rem', textAlign: 'center' }}>Strategic Security. Real-World Results.</p>
-          <div style={{ textAlign: 'center' }}>
-            <img
-              src="/sbss-badge.png"
-              alt="SBSS Badge Background"
-              className="pulse-glow"
-              style={{
-                marginTop: '2rem',
-                opacity: 0.25,
-                filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
-                width: '180px',
-                pointerEvents: 'none'
-              }}
-            />
-          </div>
-        </section>
-
-        <section style={contentSection}>
-          <h2 style={subheading}>What We Do</h2>
-          <p style={paragraph}>Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers. Our approach is grounded, practical, and aligned with real-world threats.</p>
-        </section>
-
-        <section style={contentSection}>
-          <h2 style={subheading}>The SBSS Framework</h2>
-          <p style={paragraph}>The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments. The SBSS assessment quickly identifies gaps and provides visual scoring to inform next steps.</p>
-        </section>
-
-        <section style={contentSection}>
-          <h2 style={subheading}>Why Comprehensive Security?</h2>
-          <p style={paragraph}>Modern threats target both physical and digital assets. A cyberattack may start with a stolen keycard or an untrained employee. That’s why we advocate layered, end-to-end protection—from locked doors to encrypted networks—so your entire business ecosystem is covered.</p>
-        </section>
-
-        <section style={contentSection}>
-          <h2 style={subheading}>Explore Our Services</h2>
-          <p style={{ ...paragraph, marginBottom: '1rem' }}>We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.</p>
-          <div>
-            <button onClick={() => navigate('/services')} style={navButtonStyle}>View Our Services</button>
-          </div>
-        </section>
+        {[
+          { title: 'What We Do', text: 'Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers. Our approach is grounded, practical, and aligned with real-world threats.' },
+          { title: 'The SBSS Framework', text: 'The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments.' },
+          { title: 'Why Comprehensive Security?', text: 'Modern threats target both physical and digital assets. A cyberattack may start with a stolen keycard or an untrained employee. That’s why we advocate layered, end-to-end protection.' },
+          { title: 'Explore Our Services', text: 'We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.' }
+        ].map((section, i) => (
+          <section key={i} style={{
+            marginBottom: '2.5rem',
+            padding: '1.5rem',
+            backgroundColor: i % 2 === 0 ? 'rgba(12, 12, 14, 0.95)' : 'rgba(17, 17, 17, 0.95)',
+            borderRadius: '8px'
+          }}>
+            <h2 style={{
+              fontSize: '1.6rem',
+              fontWeight: 'bold',
+              color: '#aadfff',
+              marginBottom: '0.75rem'
+            }}>{section.title}</h2>
+            <p style={{ fontSize: '1rem', color: '#ccc' }}>{section.text}</p>
+            {section.title === 'Explore Our Services' && (
+              <div style={{ marginTop: '1.25rem' }}>
+                <button onClick={() => navigate('/services')} style={navButtonStyle}>View Our Services</button>
+              </div>
+            )}
+          </section>
+        ))}
       </div>
 
       {/* Disclaimer Modal */}
@@ -144,11 +160,19 @@ export default function App() {
           </div>
         </div>
       )}
+
+      <style>{`
+        @keyframes pulseGlow {
+          0% { transform: scale(1); opacity: 0.25; }
+          50% { transform: scale(1.05); opacity: 0.35; }
+          100% { transform: scale(1); opacity: 0.25; }
+        }
+      `}</style>
     </div>
   );
 }
 
-// Reusable styles
+// --- Styles ---
 const navButtonStyle = {
   background: 'transparent',
   color: 'lightblue',
@@ -158,38 +182,6 @@ const navButtonStyle = {
   fontSize: '1rem',
   cursor: 'pointer',
   textDecoration: 'none'
-};
-
-const sectionStyle = {
-  textAlign: 'center',
-  padding: '3rem 1rem 1rem'
-};
-
-const headingStyle = {
-  fontSize: '3rem',
-  fontWeight: '900',
-  letterSpacing: '0.03em',
-  textShadow: '0 0 10px rgba(255,255,255,0.9)',
-  marginBottom: '0.5rem'
-};
-
-const contentSection = {
-  marginBottom: '2.5rem',
-  padding: '1.5rem',
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  borderRadius: '8px'
-};
-
-const subheading = {
-  fontSize: '1.5rem',
-  fontWeight: 'bold',
-  color: '#aadfff',
-  marginBottom: '0.75rem'
-};
-
-const paragraph = {
-  fontSize: '1rem',
-  color: '#ccc'
 };
 
 const closeButton = {
