@@ -22,9 +22,10 @@ export default function App() {
     }
   };
 
+  const handleCloseDisclaimer = () => setShowDisclaimer(false);
+
   return (
-    <div style={{ backgroundColor: '#0c0c0e', color: 'white', fontFamily: "'Segoe UI', 'Roboto', sans-serif" }}>
-      
+    <div style={{ backgroundColor: '#0c0c0e', minHeight: '100vh', color: 'white', fontFamily: "'Segoe UI', 'Roboto', sans-serif" }}>
       {/* Navigation */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
         <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Small Business Security Assessment</button>
@@ -43,36 +44,22 @@ export default function App() {
 
       {/* Hero Section */}
       <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem' }}>
-        <h1 style={{
-          fontSize: '4rem',
-          fontWeight: '900',
-          letterSpacing: '0.03em',
-          textShadow: '0 0 10px rgba(255,255,255,0.9)'
-        }}>
+        <h1 style={{ fontSize: '4rem', fontWeight: '900', letterSpacing: '0.03em', textShadow: '0 0 10px rgba(255,255,255,0.9)' }}>
           Silex Strategic Group
         </h1>
         <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
-
-  <img
-  src="/sbss-badge.png"
-  alt="SBSS Badge Background"
-  className="pulse-glow"
-  style={{
-    marginTop: '2rem',
-    opacity: 0.25,
-    filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
-    width: '180px',
-    pointerEvents: 'none'
-  }}
-/>
-
-        <style>{
-          @keyframes pulseGlow {
-            0% { transform: scale(1); opacity: 0.25; }
-            50% { transform: scale(1.1); opacity: 0.35; }
-            100% { transform: scale(1); opacity: 0.25; }
-          }
-        }</style>
+        <img
+          src="/sbss-badge.png"
+          alt="SBSS Badge Background"
+          className="pulse-glow"
+          style={{
+            marginTop: '2rem',
+            opacity: 0.25,
+            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
+            width: '180px',
+            pointerEvents: 'none'
+          }}
+        />
       </div>
 
       {/* Expanded Content */}
@@ -102,6 +89,7 @@ export default function App() {
       {showDisclaimer && (
         <div style={modalOverlay}>
           <div style={modalBox}>
+            <button onClick={handleCloseDisclaimer} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'transparent', border: 'none', color: 'white', fontSize: '1.2rem', cursor: 'pointer' }}>&times;</button>
             <h2>Before You Begin</h2>
             <p style={{ fontSize: '0.95rem', color: '#ccc' }}>
               The Small Business Security Assessment is a self-evaluation tool. By proceeding, you agree that:
@@ -146,17 +134,32 @@ const navButtonStyle = {
   border: '1px solid lightblue',
   padding: '0.5rem 1rem',
   borderRadius: '6px',
+  textDecoration: 'none',
   cursor: 'pointer',
   fontSize: '1rem'
 };
 
 const choiceBtnStyle = {
-  background: '#fff',
+  background: '#ffffff',
   color: '#000',
   padding: '0.75rem 1.25rem',
   borderRadius: '6px',
   fontWeight: 'bold',
   cursor: 'pointer'
+};
+
+const popoverStyle = {
+  position: 'absolute',
+  top: '3rem',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  backgroundColor: '#111',
+  padding: '1rem',
+  borderRadius: '8px',
+  boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+  zIndex: 2,
+  minWidth: '260px',
+  textAlign: 'left'
 };
 
 const modalOverlay = {
@@ -173,6 +176,7 @@ const modalOverlay = {
 };
 
 const modalBox = {
+  position: 'relative',
   backgroundColor: '#1a1a1a',
   padding: '2rem',
   borderRadius: '12px',
@@ -181,20 +185,6 @@ const modalBox = {
   color: 'white',
   textAlign: 'center',
   boxShadow: '0 0 20px rgba(0,0,0,0.5)'
-};
-
-const popoverStyle = {
-  position: 'absolute',
-  top: '3rem',
-  left: '50%',
-  transform: 'translateX(-50%)',
-  backgroundColor: '#111',
-  padding: '1rem',
-  borderRadius: '8px',
-  boxShadow: '0 0 10px rgba(0,0,0,0.3)',
-  zIndex: 2,
-  minWidth: '260px',
-  textAlign: 'left'
 };
 
 const sectionStyle = {
