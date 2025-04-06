@@ -8,6 +8,7 @@ export default function Assessment() {
   const type = new URLSearchParams(location.search).get('type');
 
   const disclaimerInfo = JSON.parse(localStorage.getItem('sbss_disclaimer')) || {};
+
   const physicalControls = [
     "SBSS.Physical.1: Is facility access restricted to authorized personnel?",
     "SBSS.Physical.2: Are visitor logs maintained at all access points?",
@@ -104,47 +105,26 @@ export default function Assessment() {
     }
   };
 
-const sendResultsByEmail = () => {
-  fetch("https://formspree.io/f/xwplwkpk", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: disclaimerInfo.name,
-      email: disclaimerInfo.email,
-      business: disclaimerInfo.business,
-      type,
-      score: getScore(),
-      timestamp: disclaimerInfo.timestamp,
-      answers: answers.map((a, i) => `${controls[i]} - ${a}`).join('\n')
-    })
-  }).then(res => {
-    if (!res.ok) console.error("Email not sent");
-    else console.log("Submission sent to Formspree!");
-  });
-};
-
-
-  const downloadPDF = () => {
-  const pdf = new jsPDF();
-
-  const loadImageAsBase64 = (src, callback) => {
-    const img = new Image();
-    img.crossOrigin = 'Anonymous';
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
-      const dataUrl = canvas.toDataURL('image/png');
-      callback(dataUrl);
-    };
-    img.src = src;
+  const sendResultsByEmail = () => {
+    fetch("https://formspree.io/f/mpwpyvkr", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: disclaimerInfo.name,
+        email: disclaimerInfo.email,
+        business: disclaimerInfo.business,
+        type,
+        score: getScore(),
+        timestamp: disclaimerInfo.timestamp,
+        answers: answers.map((a, i) => `${controls[i]} - ${a}`).join('\n')
+      })
+    }).then(res => {
+      if (!res.ok) console.error("Email not sent");
+    });
   };
 
-  const score = getScore();
-
-  const generateContent = (badgeBase64 = null) => {
+  const downloadPDF = () => {
+    const pdf = new jsPDF();
     pdf.setFontSize(16);
     pdf.text("Silex Strategic Group", 20, 30);
     pdf.setFontSize(12);
@@ -153,14 +133,10 @@ const sendResultsByEmail = () => {
     pdf.text(`Contact Email: ${disclaimerInfo.email || 'N/A'}`, 20, 60);
     pdf.text(`Disclaimer Acknowledged: ${new Date(disclaimerInfo.timestamp).toLocaleString() || 'N/A'}`, 20, 70);
     pdf.text(`Assessment Type: ${type === 'physical' ? 'Physical Security' : 'Information Security'}`, 20, 80);
-    pdf.text(`Score: ${score}`, 20, 90);
+    pdf.text(`Score: ${getScore()}`, 20, 90);
     pdf.text(`Disclaimer: This is a self-assessment. SBSS certification is subject to validation and audit.`, 20, 100, { maxWidth: 170 });
 
-    if (badgeBase64) {
-      pdf.addImage(badgeBase64, 'PNG', 20, 110, 30, 30);
-    }
-
-    let y = badgeBase64 ? 150 : 120;
+    let y = 120;
     controls.forEach((control, i) => {
       const answer = answers[i] || 'No Response';
       const lines = pdf.splitTextToSize(`${control} - Answer: ${answer}`, 170);
@@ -177,16 +153,6 @@ const sendResultsByEmail = () => {
     pdf.save('sbss-assessment-results.pdf');
     sendResultsByEmail();
   };
-
-  if (score === 'Secure') {
-    loadImageAsBase64('/sbss-badge.png', (badgeBase64) => {
-      generateContent(badgeBase64);
-    });
-  } else {
-    generateContent();
-  }
-};
-
 
   return (
     <div style={styles.container}>
@@ -210,16 +176,9 @@ const sendResultsByEmail = () => {
           <p style={{ color: getColor(getScore()), fontSize: '1.3rem' }}>
             Result: <strong>{getScore()}</strong>
           </p>
-          {getScore() === 'Secure' ? (
-            <p style={{ marginTop: '1rem', fontStyle: 'italic' }}>
-              ✅ Your business meets the SBSS Secure standard! The Small Business Security Standard (SBSS) is a proprietary framework designed by Silex Strategic Group to help small businesses rapidly evaluate their physical and information security posture using simple but powerful controls.
-              <br />Display this badge: <code>SBSS Certified Secure Business</code>
-            </p>
-          ) : (
-            <p style={{ marginTop: '1rem' }}>
-              Consider scheduling a consultation to improve your score.
-            </p>
-          )}
+          <p style={{ marginTop: '1rem' }}>
+            Consider scheduling a consultation to improve your score.
+          </p>
           <div style={styles.buttonRow}>
             <button onClick={handleRestart} style={styles.button}>Restart</button>
             <button onClick={() => navigate('/')} style={styles.button}>Back to Home</button>
