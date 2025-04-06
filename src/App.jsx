@@ -53,18 +53,19 @@ export default function App() {
         </h1>
         <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
 
-        <img
-          src="/sbss-badge.png"
-          alt="SBSS Badge"
-          style={{
-            marginTop: '2rem',
-            opacity: 0.25,
-            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
-            width: '180px',
-            animation: 'pulseGlow 4s ease-in-out infinite',
-            pointerEvents: 'none'
-          }}
-        />
+  <img
+  src="/sbss-badge.png"
+  alt="SBSS Badge Background"
+  className="pulse-glow"
+  style={{
+    marginTop: '2rem',
+    opacity: 0.25,
+    filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
+    width: '180px',
+    pointerEvents: 'none'
+  }}
+/>
+
         <style>{
           @keyframes pulseGlow {
             0% { transform: scale(1); opacity: 0.25; }
