@@ -26,13 +26,12 @@ export default function App() {
 
   return (
     <div style={{
+      backgroundImage: "url('https://www.transparenttextures.com/patterns/black-felt.png')",
       backgroundColor: '#0c0c0e',
-      backgroundImage: "url('/noise-texture.png')",
-      backgroundSize: 'cover',
-      backgroundRepeat: 'repeat',
+      minHeight: '100vh',
       color: 'white',
       fontFamily: "'Segoe UI', 'Roboto', sans-serif",
-      minHeight: '100vh'
+      backgroundRepeat: 'repeat'
     }}>
       {/* Navigation */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
@@ -63,7 +62,7 @@ export default function App() {
         <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
         <img
           src="/sbss-badge.png"
-          alt="SBSS Badge"
+          alt="SBSS Badge Background"
           className="pulse-glow"
           style={{
             marginTop: '2rem',
@@ -77,48 +76,28 @@ export default function App() {
 
       {/* Expanded Content */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
-        {[
-          {
-            title: 'What We Do',
-            content: 'Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers. Our approach is grounded, practical, and aligned with real-world threats.',
-            background: 'rgba(12, 12, 14, 0.95)'
-          },
-          {
-            title: 'The SBSS Framework',
-            content: 'The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments.',
-            background: 'rgba(17, 17, 17, 0.95)'
-          },
-          {
-            title: 'Why Comprehensive Security?',
-            content: 'Modern threats target both physical and digital assets. A cyberattack may start with a stolen keycard or an untrained employee. That’s why we advocate layered, end-to-end protection—from locked doors to encrypted networks—so your entire business ecosystem is covered.',
-            background: 'rgba(12, 12, 14, 0.95)'
-          },
-          {
-            title: 'Explore Our Services',
-            content: 'We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.',
-            background: 'rgba(17, 17, 17, 0.95)',
-            button: (
-              <div style={{ marginTop: '1rem' }}>
-                <button onClick={() => navigate('/services')} style={navButtonStyle}>View Our Services</button>
-              </div>
-            )
-          }
-        ].map((section, i) => (
-          <section
-            key={i}
-            style={{
-              backgroundColor: section.background,
-              backdropFilter: 'blur(2px)',
-              borderRadius: '8px',
-              padding: '2rem',
-              marginBottom: '2rem'
-            }}
-          >
-            <h2 style={{ fontSize: '1.75rem', color: '#aadfff', marginBottom: '0.75rem' }}>{section.title}</h2>
-            <p style={{ fontSize: '1rem', color: '#ccc' }}>{section.content}</p>
-            {section.button}
-          </section>
-        ))}
+        <section style={sectionStyle}>
+          <h2>What We Do</h2>
+          <p>Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers. Our approach is grounded, practical, and aligned with real-world threats.</p>
+        </section>
+
+        <section style={{ ...sectionStyle, backgroundColor: 'rgba(17, 17, 17, 0.6)', borderRadius: '12px', padding: '2rem' }}>
+          <h2>The SBSS Framework</h2>
+          <p>The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments. The SBSS assessment quickly identifies gaps and provides visual scoring to inform next steps.</p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2>Why Comprehensive Security?</h2>
+          <p>Modern threats target both physical and digital assets. A cyberattack may start with a stolen keycard or an untrained employee. That’s why we advocate layered, end-to-end protection—from locked doors to encrypted networks—so your entire business ecosystem is covered.</p>
+        </section>
+
+        <section style={{ ...sectionStyle, textAlign: 'center' }}>
+          <h2>Explore Our Services</h2>
+          <p>We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.</p>
+          <div style={{ marginTop: '1rem' }}>
+            <button onClick={() => navigate('/services')} style={navButtonStyle}>View Our Services</button>
+          </div>
+        </section>
       </div>
 
       {/* Disclaimer Modal */}
@@ -222,4 +201,8 @@ const popoverStyle = {
   zIndex: 2,
   minWidth: '260px',
   textAlign: 'left'
+};
+
+const sectionStyle = {
+  marginBottom: '2.5rem'
 };
