@@ -1,3 +1,5 @@
+// Save as App.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +12,8 @@ export default function App() {
   const navigate = useNavigate();
 
   const handleStartAssessmentClick = () => setShowDisclaimer(true);
+  const handleCloseDisclaimer = () => setShowDisclaimer(false);
+
   const handleDisclaimerSubmit = (e) => {
     e.preventDefault();
     if (formData.name && formData.business && formData.email && formData.agreed) {
@@ -20,7 +24,6 @@ export default function App() {
       alert('Please complete all fields and accept the disclaimer.');
     }
   };
-  const handleCloseDisclaimer = () => setShowDisclaimer(false);
 
   useEffect(() => {
     window.handleStartAssessmentClick = handleStartAssessmentClick;
@@ -28,97 +31,93 @@ export default function App() {
 
   return (
     <div style={{
+      display: 'flex',
       backgroundColor: '#0c0c0e',
-      color: 'white',
-      fontFamily: "'Segoe UI', 'Roboto', sans-serif",
       backgroundImage: "url('/noise-texture.png')",
       backgroundSize: 'cover',
       backgroundRepeat: 'repeat',
-      minHeight: '100vh'
+      minHeight: '100vh',
+      color: 'white',
+      fontFamily: "'Segoe UI', sans-serif"
     }}>
-      {/* Banner */}
+      {/* Sidebar */}
       <div style={{
+        width: '220px',
         backgroundColor: '#111',
-        padding: '1rem 2rem',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottom: '1px solid #333',
-        flexWrap: 'wrap'
+        padding: '2rem 1rem',
+        borderRight: '1px solid #333',
+        gap: '1.5rem'
       }}>
-        <img src="/ssg-logo.png" alt="SSG Logo" style={{ height: '32px', opacity: 0.85 }} />
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Small Business Security Assessment</button>
-          <button onClick={() => navigate('/services')} style={navButtonStyle}>Services</button>
-          <button onClick={() => setShowContact(!showContact)} style={navButtonStyle}>Contact</button>
-        </div>
+        <img src="/ssg-logo.png" alt="SSG Logo" style={{ height: '40px', marginBottom: '2rem', opacity: 0.9 }} />
+        <button onClick={handleStartAssessmentClick} style={navButton}>Assessment</button>
+        <button onClick={() => navigate('/services')} style={navButton}>Services</button>
+        <button onClick={() => setShowContact(!showContact)} style={navButton}>Contact</button>
+        {showContact && (
+          <div style={popoverStyle}>
+            <h3>Contact Us</h3>
+            <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
+            <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
+          </div>
+        )}
       </div>
 
-      {/* Contact Popover */}
-      {showContact && (
-        <div style={popoverStyle}>
-          <h3>Contact Us</h3>
-          <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
-          <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
-        </div>
-      )}
+      {/* Content */}
+      <div style={{ flexGrow: 1, padding: '2rem', maxWidth: '1000px', margin: '0 auto' }}>
+        <section style={{ textAlign: 'center', paddingBottom: '3rem' }}>
+          <h1 style={{
+            fontSize: '3rem',
+            fontWeight: '900',
+            letterSpacing: '0.03em',
+            textShadow: '0 0 10px rgba(255,255,255,0.9)',
+            marginBottom: '0.5rem'
+          }}>Silex Strategic Group</h1>
+          <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
+          <img
+            src="/sbss-badge.png"
+            alt="SBSS Badge Background"
+            style={{
+              marginTop: '2rem',
+              opacity: 0.25,
+              filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
+              width: '180px',
+              pointerEvents: 'none'
+            }}
+            className="pulse-glow"
+          />
+        </section>
 
-      {/* Hero Section */}
-      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem' }}>
-        <h1 style={{
-          fontSize: '3.5rem',
-          fontWeight: '900',
-          letterSpacing: '0.03em',
-          textShadow: '0 0 10px rgba(255,255,255,0.9)'
-        }}>
-          Silex Strategic Group
-        </h1>
-        <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
-        <img
-          src="/sbss-badge.png"
-          alt="SBSS Badge"
-          className="pulse-glow"
-          style={{
-            marginTop: '2rem',
-            opacity: 0.25,
-            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
-            width: '180px',
-            pointerEvents: 'none'
-          }}
-        />
-      </div>
+        <section style={sectionBox}>
+          <h2 style={sectionTitle}>What We Do</h2>
+          <p style={paragraph}>Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers. Our approach is grounded, practical, and aligned with real-world threats.</p>
+        </section>
 
-      {/* Sections */}
-      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
-        <section style={sectionStyle}>
-          <h2 style={subheading}>What We Do</h2>
-          <p style={paragraph}>Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers.</p>
+        <section style={sectionBox}>
+          <h2 style={sectionTitle}>The SBSS Framework</h2>
+          <p style={paragraph}>The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments.</p>
         </section>
-        <section style={sectionStyle}>
-          <h2 style={subheading}>The SBSS Framework</h2>
-          <p style={paragraph}>The SBSS is a proprietary framework that simplifies risk management into 25 control checkpoints for both physical and information security.</p>
+
+        <section style={sectionBox}>
+          <h2 style={sectionTitle}>Why Comprehensive Security?</h2>
+          <p style={paragraph}>Modern threats target both physical and digital assets. A cyberattack may start with a stolen keycard or an untrained employee. We advocate layered, end-to-end protection.</p>
         </section>
-        <section style={sectionStyle}>
-          <h2 style={subheading}>Why Comprehensive Security?</h2>
-          <p style={paragraph}>Threats are physical and digital. We advocate layered defense—from locked doors to encrypted networks—to protect your full business ecosystem.</p>
-        </section>
-        <section style={sectionStyle}>
-          <h2 style={subheading}>Explore Our Services</h2>
-          <p style={{ ...paragraph, marginBottom: '1rem' }}>We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.</p>
-          <button onClick={() => navigate('/services')} style={navButtonStyle}>View Our Services</button>
+
+        <section style={sectionBox}>
+          <h2 style={sectionTitle}>Explore Our Services</h2>
+          <p style={paragraph}>We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.</p>
+          <button onClick={() => navigate('/services')} style={{ ...navButton, marginTop: '1rem' }}>View Our Services</button>
         </section>
       </div>
 
-      {/* Modals */}
+      {/* Disclaimer Modal */}
       {showDisclaimer && (
         <div style={modalOverlay}>
           <div style={modalBox}>
             <button onClick={handleCloseDisclaimer} style={closeButton}>&times;</button>
             <h2>Before You Begin</h2>
-            <p style={{ fontSize: '0.95rem', color: '#ccc' }}>
-              This is a self-assessment. By continuing you agree that:
-            </p>
-            <ul style={{ fontSize: '0.85rem', textAlign: 'left', color: '#ccc' }}>
+            <ul style={{ fontSize: '0.9rem', color: '#ccc', textAlign: 'left', marginBottom: '1rem' }}>
               <li>No liability is assumed by Silex Strategic Group.</li>
               <li>Badge usage may require validation and audit.</li>
               <li>We may contact you with recommendations.</li>
@@ -130,19 +129,20 @@ export default function App() {
               <label>
                 <input type="checkbox" checked={formData.agreed} onChange={(e) => setFormData({ ...formData, agreed: e.target.checked })} /> I agree to the disclaimer terms
               </label>
-              <button type="submit" style={navButtonStyle}>Continue to Assessment</button>
+              <button type="submit" style={navButton}>Continue</button>
             </form>
           </div>
         </div>
       )}
 
+      {/* Assessment Type Modal */}
       {showOptions && (
         <div style={modalOverlay}>
           <div style={modalBox}>
             <h3 style={{ color: 'lightgray' }}>Choose Assessment Type</h3>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
-              <button onClick={() => navigate('/assessment?type=physical')} style={navButtonStyle}>Physical Security</button>
-              <button onClick={() => navigate('/assessment?type=infosec')} style={navButtonStyle}>Information Security</button>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '1rem' }}>
+              <button onClick={() => navigate('/assessment?type=physical')} style={navButton}>Physical Security</button>
+              <button onClick={() => navigate('/assessment?type=infosec')} style={navButton}>Information Security</button>
             </div>
           </div>
         </div>
@@ -150,9 +150,9 @@ export default function App() {
 
       <style>{`
         .pulse-glow {
-          animation: subtlePulse 4s infinite;
+          animation: pulse 4s infinite;
         }
-        @keyframes subtlePulse {
+        @keyframes pulse {
           0% { transform: scale(1); opacity: 0.25; }
           50% { transform: scale(1.05); opacity: 0.35; }
           100% { transform: scale(1); opacity: 0.25; }
@@ -162,46 +162,33 @@ export default function App() {
   );
 }
 
-// 🔧 Shared styles
-const navButtonStyle = {
+// Styles
+const navButton = {
   background: 'transparent',
   color: 'lightblue',
   border: '1px solid lightblue',
   padding: '0.5rem 1rem',
   borderRadius: '6px',
-  fontSize: '1rem',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  textAlign: 'center'
 };
 
-const sectionStyle = {
-  marginBottom: '2.5rem',
+const sectionBox = {
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  borderRadius: '10px',
   padding: '1.5rem',
-  backgroundColor: 'rgba(0,0,0,0.4)',
-  borderRadius: '8px'
+  marginBottom: '2rem'
 };
 
-const subheading = {
-  fontSize: '1.5rem',
-  fontWeight: 'bold',
+const sectionTitle = {
   color: '#aadfff',
+  fontSize: '1.5rem',
   marginBottom: '0.75rem'
 };
 
 const paragraph = {
-  fontSize: '1rem',
-  color: '#ccc'
-};
-
-const popoverStyle = {
-  position: 'absolute',
-  top: '4rem',
-  right: '2rem',
-  backgroundColor: '#111',
-  padding: '1rem',
-  borderRadius: '8px',
-  zIndex: 999,
-  boxShadow: '0 0 10px rgba(0,0,0,0.4)',
-  color: '#ccc'
+  color: '#ccc',
+  fontSize: '1rem'
 };
 
 const modalOverlay = {
@@ -214,18 +201,18 @@ const modalOverlay = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  zIndex: 10
+  zIndex: 1000
 };
 
 const modalBox = {
-  position: 'relative',
   backgroundColor: '#1a1a1a',
   padding: '2rem',
-  borderRadius: '12px',
-  maxWidth: '500px',
+  borderRadius: '10px',
   width: '90%',
+  maxWidth: '500px',
   color: 'white',
-  textAlign: 'center'
+  textAlign: 'center',
+  position: 'relative'
 };
 
 const closeButton = {
@@ -233,8 +220,22 @@ const closeButton = {
   top: '1rem',
   right: '1rem',
   background: 'transparent',
-  border: 'none',
   color: 'white',
-  fontSize: '1.2rem',
+  fontSize: '1.5rem',
+  border: 'none',
   cursor: 'pointer'
+};
+
+const popoverStyle = {
+  position: 'absolute',
+  top: '100%',
+  left: '0',
+  marginTop: '0.5rem',
+  backgroundColor: '#111',
+  padding: '1rem',
+  borderRadius: '8px',
+  boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+  zIndex: 10,
+  minWidth: '220px',
+  textAlign: 'left'
 };
