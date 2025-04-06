@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function ServicesPage() {
-  const [showDisclaimer, setShowDisclaimer] = useState(false);
+export default function App() {
   const [showOptions, setShowOptions] = useState(false);
+  const [showContact, setShowContact] = useState(false);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [formData, setFormData] = useState({ name: '', business: '', email: '', agreed: false });
+
   const navigate = useNavigate();
 
   const handleStartAssessmentClick = () => setShowDisclaimer(true);
@@ -20,31 +22,93 @@ export default function ServicesPage() {
     }
   };
 
-  const handleCloseDisclaimer = () => setShowDisclaimer(false);
-
   return (
-    <div style={{ backgroundColor: '#0c0c0e', color: 'white', padding: '2rem', minHeight: '100vh' }}>
-      <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Our Consulting Services</h1>
-      <p style={{ maxWidth: '800px', lineHeight: '1.6' }}>
-        We offer Physical Security Auditing, Information Security Assessments, SBSS Certification Readiness, and Compliance Strategy Consulting. These services help businesses identify risks, establish controls, and document their efforts in alignment with the Small Business Security Standard.
-      </p>
-      <button onClick={handleStartAssessmentClick} style={{ ...buttonStyle, marginTop: '2rem' }}>
-        Take the SBSS Assessment
-      </button>
+    <div style={{ backgroundColor: '#0c0c0e', color: 'white', fontFamily: "'Segoe UI', 'Roboto', sans-serif" }}>
+      
+      {/* Navigation */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
+        <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Small Business Security Assessment</button>
+        <button onClick={() => navigate('/services')} style={navButtonStyle}>Services</button>
+        <div style={{ position: 'relative' }}>
+          <button onClick={() => setShowContact(!showContact)} style={navButtonStyle}>Contact</button>
+          {showContact && (
+            <div style={popoverStyle}>
+              <h3>Contact Us</h3>
+              <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
+              <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Hero Section */}
+      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem' }}>
+        <h1 style={{
+          fontSize: '4rem',
+          fontWeight: '900',
+          letterSpacing: '0.03em',
+          textShadow: '0 0 10px rgba(255,255,255,0.9)'
+        }}>
+          Silex Strategic Group
+        </h1>
+        <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
+
+        <img
+          src="/sbss-badge.png"
+          alt="SBSS Badge"
+          style={{
+            marginTop: '2rem',
+            opacity: 0.25,
+            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
+            width: '180px',
+            animation: 'pulseGlow 4s ease-in-out infinite',
+            pointerEvents: 'none'
+          }}
+        />
+        <style>{
+          @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.25; }
+            50% { transform: scale(1.1); opacity: 0.35; }
+            100% { transform: scale(1); opacity: 0.25; }
+          }
+        }</style>
+      </div>
+
+      {/* Expanded Content */}
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
+        <section style={sectionStyle}>
+          <h2>What We Do</h2>
+          <p>Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers. Our approach is grounded, practical, and aligned with real-world threats.</p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2>The SBSS Framework</h2>
+          <p>The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments. The SBSS assessment quickly identifies gaps and provides visual scoring to inform next steps.</p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2>Why Comprehensive Security?</h2>
+          <p>Modern threats target both physical and digital assets. A cyberattack may start with a stolen keycard or an untrained employee. That’s why we advocate layered, end-to-end protection—from locked doors to encrypted networks—so your entire business ecosystem is covered.</p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2>Explore Our Services</h2>
+          <p>We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping. <button style={{ ...navButtonStyle, marginLeft: '0.5rem' }} onClick={() => navigate('/services')}>View Services</button></p>
+        </section>
+      </div>
 
       {/* Disclaimer Modal */}
       {showDisclaimer && (
         <div style={modalOverlay}>
           <div style={modalBox}>
-            <button onClick={handleCloseDisclaimer} style={closeButton}>&times;</button>
             <h2>Before You Begin</h2>
-            <p style={{ fontSize: '0.95rem', marginBottom: '1rem', color: '#ccc' }}>
-              The Small Business Security Assessment is a self-evaluation tool designed to help businesses identify potential risks. By proceeding, you agree that:
+            <p style={{ fontSize: '0.95rem', color: '#ccc' }}>
+              The Small Business Security Assessment is a self-evaluation tool. By proceeding, you agree that:
             </p>
-            <ul style={{ fontSize: '0.85rem', textAlign: 'left', color: '#ccc', marginBottom: '1rem' }}>
+            <ul style={{ fontSize: '0.85rem', textAlign: 'left', color: '#ccc' }}>
               <li>No liability is assumed by Silex Strategic Group.</li>
               <li>Badge usage may require validation and audit.</li>
-              <li>We may follow up with consultation suggestions.</li>
+              <li>We may contact you with recommendations.</li>
             </ul>
             <form onSubmit={handleDisclaimerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
@@ -75,25 +139,22 @@ export default function ServicesPage() {
   );
 }
 
-const buttonStyle = {
-  background: '#ffffff',
+const navButtonStyle = {
+  background: 'transparent',
+  color: 'lightblue',
+  border: '1px solid lightblue',
+  padding: '0.5rem 1rem',
+  borderRadius: '6px',
+  cursor: 'pointer',
+  fontSize: '1rem'
+};
+
+const choiceBtnStyle = {
+  background: '#fff',
   color: '#000',
   padding: '0.75rem 1.25rem',
   borderRadius: '6px',
   fontWeight: 'bold',
-  cursor: 'pointer'
-};
-
-const choiceBtnStyle = buttonStyle;
-
-const closeButton = {
-  position: 'absolute',
-  top: '1rem',
-  right: '1rem',
-  background: 'transparent',
-  border: 'none',
-  color: 'white',
-  fontSize: '1.2rem',
   cursor: 'pointer'
 };
 
@@ -111,7 +172,6 @@ const modalOverlay = {
 };
 
 const modalBox = {
-  position: 'relative',
   backgroundColor: '#1a1a1a',
   padding: '2rem',
   borderRadius: '12px',
@@ -120,4 +180,22 @@ const modalBox = {
   color: 'white',
   textAlign: 'center',
   boxShadow: '0 0 20px rgba(0,0,0,0.5)'
+};
+
+const popoverStyle = {
+  position: 'absolute',
+  top: '3rem',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  backgroundColor: '#111',
+  padding: '1rem',
+  borderRadius: '8px',
+  boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+  zIndex: 2,
+  minWidth: '260px',
+  textAlign: 'left'
+};
+
+const sectionStyle = {
+  marginBottom: '2.5rem'
 };
