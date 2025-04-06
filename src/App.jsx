@@ -58,7 +58,20 @@ export default function App() {
       </div>
 
       {/* Hero Section */}
-      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem' }}>
+      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem', position: 'relative' }}>
+        <img
+          src="/silex-logo.png"
+          alt="Silex Logo"
+          style={{
+            position: 'absolute',
+            top: '2rem',
+            left: '2rem',
+            width: '80px',
+            height: '80px',
+            objectFit: 'contain',
+            opacity: 0.95
+          }}
+        />
         <h1 style={{
           fontSize: '4rem',
           fontWeight: '900',
@@ -96,6 +109,20 @@ export default function App() {
           <p style={paragraph}>
             The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments. The SBSS assessment quickly identifies gaps and provides visual scoring to inform next steps.
           </p>
+          <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+            <a
+              href="/SBSS_Framework.pdf"
+              download
+              style={{
+                ...navButtonStyle,
+                backgroundColor: 'rgba(173, 216, 230, 0.1)',
+                borderColor: '#4FC3F7',
+                color: '#4FC3F7'
+              }}
+            >
+              Download Full SBSS Framework PDF
+            </a>
+          </div>
         </section>
 
         <section style={sectionStyle}>
