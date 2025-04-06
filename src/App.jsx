@@ -43,7 +43,6 @@ export default function App() {
         flexWrap: 'wrap',
         borderBottom: '1px solid rgba(255,255,255,0.05)'
       }}>
-        {/* Logo in Top Left */}
         <img
           src="/silex-logo.png"
           alt="Silex Logo"
@@ -54,8 +53,6 @@ export default function App() {
             marginRight: '1rem'
           }}
         />
-
-        {/* Navigation Buttons */}
         <div style={{
           display: 'flex',
           gap: '1rem',
@@ -78,7 +75,13 @@ export default function App() {
       </div>
 
       {/* Hero Section */}
-      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem' }}>
+      <div style={{
+        textAlign: 'center',
+        padding: '4rem 1rem 2rem',
+        backgroundColor: '#1f2a35',
+        borderBottom: '1px solid rgba(255,255,255,0.1)',
+        borderRadius: '0 0 20px 20px'
+      }}>
         <h1 style={{
           fontSize: '4rem',
           fontWeight: '900',
@@ -189,7 +192,7 @@ export default function App() {
   );
 }
 
-// Reusable styles
+// Styles
 const navButtonStyle = {
   background: 'transparent',
   color: 'lightblue',
