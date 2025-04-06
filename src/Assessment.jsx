@@ -104,23 +104,25 @@ export default function Assessment() {
     }
   };
 
-  const sendResultsByEmail = () => {
-    fetch("https://formspree.io/f/mpwpyvkr", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: disclaimerInfo.name,
-        email: disclaimerInfo.email,
-        business: disclaimerInfo.business,
-        type,
-        score: getScore(),
-        timestamp: disclaimerInfo.timestamp,
-        answers: answers.map((a, i) => `${controls[i]} - ${a}`).join('\n')
-      })
-    }).then(res => {
-      if (!res.ok) console.error("Email not sent");
-    });
-  };
+const sendResultsByEmail = () => {
+  fetch("https://formspree.io/f/xwplwkpk", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: disclaimerInfo.name,
+      email: disclaimerInfo.email,
+      business: disclaimerInfo.business,
+      type,
+      score: getScore(),
+      timestamp: disclaimerInfo.timestamp,
+      answers: answers.map((a, i) => `${controls[i]} - ${a}`).join('\n')
+    })
+  }).then(res => {
+    if (!res.ok) console.error("Email not sent");
+    else console.log("Submission sent to Formspree!");
+  });
+};
+
 
   const downloadPDF = () => {
   const pdf = new jsPDF();
