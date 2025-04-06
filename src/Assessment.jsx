@@ -1,15 +1,10 @@
-// Updated: Added Calendly consultation button for "Needs Improvement" and "At-Risk" results
-
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import jsPDF from 'jspdf';
 
 export default function Assessment() {
   const location = useLocation();
   const navigate = useNavigate();
   const type = new URLSearchParams(location.search).get('type');
-
-  const disclaimerInfo = JSON.parse(localStorage.getItem('sbss_disclaimer')) || {};
 
   const physicalControls = [
     'SBSS.Physical.1: Entry points are secured with commercial-grade locks.',
@@ -71,85 +66,81 @@ export default function Assessment() {
 
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
-  const [showContactForm, setShowContactForm] = useState(false);
-  const [certificationForm, setCertificationForm] = useState({ name: '', email: '', message: '' });
 
-  const handleAnswer = (response) => {
-    setAnswers((prev) => [...prev, response]);
+  const handleAnswer = (value) => {
+    setAnswers([...answers, value]);
     setIndex(index + 1);
-  };
-
-  const handleBack = () => {
-    if (index > 0) {
-      const updatedAnswers = [...answers];
-      updatedAnswers.pop();
-      setAnswers(updatedAnswers);
-      setIndex(index - 1);
-    }
-  };
-
-  const handleRestart = () => {
-    setIndex(0);
-    setAnswers([]);
   };
 
   const getScore = () => {
     const yesCount = answers.filter((a) => a === 'yes').length;
-    const percentage = (yesCount / controls.length) * 100;
-    if (percentage >= 85) return 'Secure';
-    if (percentage >= 60) return 'Needs Improvement';
+    const pct = (yesCount / controls.length) * 100;
+    if (pct >= 85) return 'Secure';
+    if (pct >= 60) return 'Needs Improvement';
     return 'At-Risk';
   };
 
-  const getMessage = (score) => {
-    switch (score) {
-      case 'Secure':
-        return "Your environment appears secure! Consider applying for SBSS Certification to officially validate and showcase your strong security posture.";
-      case 'Needs Improvement':
-        return "Your environment shows promise, but improvements are needed. Consider reviewing the controls you answered 'No' to and building a roadmap.";
-      case 'At-Risk':
-        return "Your environment is at risk. We recommend scheduling a consultation to address key security gaps and develop a resilience strategy.";
-      default:
-        return "Assessment complete.";
-    }
+  const getColor = (score) => {
+    if (score === 'Secure') return 'lightgreen';
+    if (score === 'Needs Improvement') return 'gold';
+    return 'tomato';
   };
 
-  const getColor = (score) => {
-    switch (score) {
-      case 'Secure': return 'lightgreen';
-      case 'Needs Improvement': return 'yellow';
-      case 'At-Risk': return 'red';
-      default: return 'white';
+  const getMessage = (score) => {
+    if (score === 'Secure') {
+      return "Your environment appears secure! Consider applying for SBSS Certification to officially validate and showcase your strong security posture.";
     }
+    if (score === 'Needs Improvement') {
+      return "Your environment shows promise, but improvements are needed. Review the controls marked 'No' and consider our support.";
+    }
+    return "Your environment is at risk. We recommend scheduling a consultation to address key security gaps and develop a resilience strategy.";
+  };
+
+  const restart = () => {
+    setIndex(0);
+    setAnswers([]);
   };
 
   return (
-    <div style={{ padding: '2rem', color: 'white', backgroundColor: '#0c0c0e', fontFamily: 'Segoe UI, sans-serif' }}>
+    <div style={{ backgroundColor: '#0c0c0e', color: 'white', padding: '2rem', minHeight: '100vh' }}>
       {index < controls.length ? (
-        <div>
+        <div style={{
+          backgroundColor: '#111',
+          padding: '2rem',
+          borderRadius: '12px',
+          boxShadow: '0 0 20px rgba(0,0,0,0.5)',
+          maxWidth: '700px',
+          margin: '0 auto'
+        }}>
           <h2>{controls[index].split(':')[0]}</h2>
           <p>{controls[index].split(':')[1]}</p>
           <div style={{ margin: '1rem 0' }}>
-            <progress value={index + 1} max={controls.length} style={{ width: '100%' }}></progress>
+            <progress value={index + 1} max={controls.length} style={{ width: '100%' }} />
             <p style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>{index + 1} of {controls.length}</p>
           </div>
           <div>
             <button onClick={() => handleAnswer('yes')} style={{ marginRight: '1rem' }}>Yes</button>
             <button onClick={() => handleAnswer('no')}>No</button>
           </div>
-          {index > 0 && <button onClick={handleBack} style={{ marginTop: '1rem' }}>Back</button>}
         </div>
       ) : (
-        <div>
+        <div style={{
+          backgroundColor: '#111',
+          padding: '2rem',
+          borderRadius: '12px',
+          boxShadow: '0 0 20px rgba(0,0,0,0.5)',
+          maxWidth: '700px',
+          margin: '0 auto',
+          textAlign: 'center'
+        }}>
           <h2>Assessment Complete</h2>
-          <p style={{ color: getColor(getScore()), fontSize: '1.3rem' }}>
+          <p style={{ color: getColor(getScore()), fontSize: '1.25rem' }}>
             Result: <strong>{getScore()}</strong>
           </p>
           <p style={{ marginTop: '1rem' }}>{getMessage(getScore())}</p>
 
           {getScore() !== 'Secure' && (
             <div style={{ marginTop: '1.5rem' }}>
-              <p style={{ marginBottom: '0.5rem' }}>Want help strengthening your environment?</p>
               <a
                 href="https://calendly.com/silexstrategicgroup-oek"
                 target="_blank"
@@ -170,7 +161,7 @@ export default function Assessment() {
           )}
 
           <div style={{ marginTop: '2rem' }}>
-            <button onClick={handleRestart}>Restart</button>
+            <button onClick={restart}>Restart</button>
             <button onClick={() => navigate('/')} style={{ marginLeft: '1rem' }}>Back to Home</button>
           </div>
         </div>
