@@ -136,8 +136,12 @@ export default function App() {
 
         <section style={sectionStyle}>
           <h2 style={subheading}>Explore Our Services</h2>
-          <p style={{ ...paragraph, marginBottom: '1rem' }}>We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.</p>
-          <button onClick={() => navigate('/services')} style={navButtonStyle}>View Our Services</button>
+          <p style={{ ...paragraph, marginBottom: '1rem' }}>
+            We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.
+          </p>
+          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+            <button onClick={() => navigate('/services')} style={navButtonStyle}>View Our Services</button>
+          </div>
         </section>
       </div>
 
