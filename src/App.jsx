@@ -38,23 +38,13 @@ export default function App() {
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         padding: '1.5rem 1rem',
         flexWrap: 'wrap',
         backgroundColor: '#f8f9fa',
         color: '#0c0c0e',
         borderBottom: '1px solid rgba(0,0,0,0.1)'
       }}>
-        <img
-          src="/silex-logo.png"
-          alt="Silex Logo"
-          style={{
-            height: '50px',
-            width: 'auto',
-            objectFit: 'contain',
-            marginRight: '1rem'
-          }}
-        />
         <div style={{
           display: 'flex',
           gap: '1rem',
