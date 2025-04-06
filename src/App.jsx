@@ -37,41 +37,48 @@ export default function App() {
       {/* Navigation */}
       <div style={{
         display: 'flex',
-        justifyContent: 'center',
-        gap: '1rem',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         padding: '1.5rem 1rem',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        borderBottom: '1px solid rgba(255,255,255,0.05)'
       }}>
-        <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Assessment</button>
-        <button onClick={() => navigate('/services')} style={navButtonStyle}>Services</button>
-        <button onClick={() => window.open('https://calendly.com/silexstrategicgroup-oek', '_blank')} style={navButtonStyle}>Schedule Consult</button>
-        <div style={{ position: 'relative' }}>
-          <button onClick={() => setShowContact(!showContact)} style={navButtonStyle}>Contact</button>
-          {showContact && (
-            <div style={popoverStyle}>
-              <h3>Contact Us</h3>
-              <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
-              <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem', position: 'relative' }}>
+        {/* Logo in Top Left */}
         <img
           src="/silex-logo.png"
           alt="Silex Logo"
           style={{
-            position: 'absolute',
-            top: '2rem',
-            left: '2rem',
-            width: '80px',
-            height: '80px',
+            height: '50px',
+            width: 'auto',
             objectFit: 'contain',
-            opacity: 0.95
+            marginRight: '1rem'
           }}
         />
+
+        {/* Navigation Buttons */}
+        <div style={{
+          display: 'flex',
+          gap: '1rem',
+          flexWrap: 'wrap'
+        }}>
+          <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Assessment</button>
+          <button onClick={() => navigate('/services')} style={navButtonStyle}>Services</button>
+          <button onClick={() => window.open('https://calendly.com/silexstrategicgroup-oek', '_blank')} style={navButtonStyle}>Schedule Consult</button>
+          <div style={{ position: 'relative' }}>
+            <button onClick={() => setShowContact(!showContact)} style={navButtonStyle}>Contact</button>
+            {showContact && (
+              <div style={popoverStyle}>
+                <h3>Contact Us</h3>
+                <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
+                <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Hero Section */}
+      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem' }}>
         <h1 style={{
           fontSize: '4rem',
           fontWeight: '900',
