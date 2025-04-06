@@ -41,7 +41,9 @@ export default function App() {
         justifyContent: 'space-between',
         padding: '1.5rem 1rem',
         flexWrap: 'wrap',
-        borderBottom: '1px solid rgba(255,255,255,0.05)'
+        backgroundColor: '#f8f9fa',
+        color: '#0c0c0e',
+        borderBottom: '1px solid rgba(0,0,0,0.1)'
       }}>
         <img
           src="/silex-logo.png"
@@ -58,11 +60,11 @@ export default function App() {
           gap: '1rem',
           flexWrap: 'wrap'
         }}>
-          <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Assessment</button>
-          <button onClick={() => navigate('/services')} style={navButtonStyle}>Services</button>
-          <button onClick={() => window.open('https://calendly.com/silexstrategicgroup-oek', '_blank')} style={navButtonStyle}>Schedule Consult</button>
+          <button onClick={handleStartAssessmentClick} style={navButtonStyleLight}>Assessment</button>
+          <button onClick={() => navigate('/services')} style={navButtonStyleLight}>Services</button>
+          <button onClick={() => window.open('https://calendly.com/silexstrategicgroup-oek', '_blank')} style={navButtonStyleLight}>Schedule Consult</button>
           <div style={{ position: 'relative' }}>
-            <button onClick={() => setShowContact(!showContact)} style={navButtonStyle}>Contact</button>
+            <button onClick={() => setShowContact(!showContact)} style={navButtonStyleLight}>Contact</button>
             {showContact && (
               <div style={popoverStyle}>
                 <h3>Contact Us</h3>
@@ -197,6 +199,17 @@ const navButtonStyle = {
   background: 'transparent',
   color: 'lightblue',
   border: '1px solid lightblue',
+  padding: '0.5rem 1.25rem',
+  borderRadius: '6px',
+  fontSize: '1rem',
+  cursor: 'pointer',
+  textDecoration: 'none'
+};
+
+const navButtonStyleLight = {
+  background: 'transparent',
+  color: '#0c0c0e',
+  border: '1px solid #0c0c0e',
   padding: '0.5rem 1.25rem',
   borderRadius: '6px',
   fontSize: '1rem',
