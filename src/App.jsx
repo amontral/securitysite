@@ -10,7 +10,6 @@ export default function App() {
   const navigate = useNavigate();
 
   const handleStartAssessmentClick = () => setShowDisclaimer(true);
-
   const handleDisclaimerSubmit = (e) => {
     e.preventDefault();
     if (formData.name && formData.business && formData.email && formData.agreed) {
@@ -30,19 +29,23 @@ export default function App() {
 
   return (
     <div style={styles.container}>
-      <div style={styles.sidebar}>
+      {/* Horizontal Top Banner */}
+      <div style={styles.topBanner}>
         <img src="/ssg-logo.png" alt="SSG Logo" style={styles.logo} />
-        <button onClick={handleStartAssessmentClick} style={styles.navButton}>Assessment</button>
-        <button onClick={() => navigate('/services')} style={styles.navButton}>Services</button>
-        <button onClick={() => setShowContact(!showContact)} style={styles.navButton}>Contact</button>
-        {showContact && (
-          <div style={styles.popoverStyle}>
-            <h3>Contact Us</h3>
-            <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
-            <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
-          </div>
-        )}
+        <div style={styles.navRight}>
+          <button onClick={handleStartAssessmentClick} style={styles.navButton}>Assessment</button>
+          <button onClick={() => navigate('/services')} style={styles.navButton}>Services</button>
+          <button onClick={() => setShowContact(!showContact)} style={styles.navButton}>Contact</button>
+        </div>
       </div>
+
+      {showContact && (
+        <div style={styles.popoverStyle}>
+          <h3>Contact Us</h3>
+          <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
+          <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
+        </div>
+      )}
 
       <div style={styles.contentWrapper}>
         <section style={styles.heroSection}>
@@ -51,7 +54,7 @@ export default function App() {
           <div style={{ textAlign: 'center' }}>
             <img
               src="/sbss-badge.png"
-              alt="SBSS Badge Background"
+              alt="SBSS Badge"
               className="pulse-glow"
               style={styles.badgeStyle}
             />
@@ -75,12 +78,12 @@ export default function App() {
             title: "Explore Our Services",
             text: "We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping."
           }
-        ].map(({ title, text }) => (
-          <section style={styles.contentSection} key={title}>
+        ].map(({ title, text }, idx) => (
+          <section key={idx} style={styles.contentSection}>
             <h2 style={styles.subheadingCentered}>{title}</h2>
             <p style={styles.paragraph}>{text}</p>
             {title === "Explore Our Services" && (
-              <div>
+              <div style={{ marginTop: '1rem' }}>
                 <button onClick={() => navigate('/services')} style={styles.navButton}>View Our Services</button>
               </div>
             )}
@@ -92,6 +95,7 @@ export default function App() {
         </footer>
       </div>
 
+      {/* Disclaimer Modal */}
       {showDisclaimer && (
         <div style={styles.modalOverlay}>
           <div style={styles.modalBox}>
@@ -146,7 +150,6 @@ export default function App() {
 
 const styles = {
   container: {
-    display: 'flex',
     backgroundColor: '#0c0c0e',
     color: 'white',
     fontFamily: "'Segoe UI', 'Roboto', sans-serif",
@@ -155,40 +158,46 @@ const styles = {
     backgroundRepeat: 'repeat',
     minHeight: '100vh'
   },
-  sidebar: {
-    width: '200px',
-    padding: '2rem 1rem',
-    backgroundColor: '#111',
+  topBanner: {
     display: 'flex',
-    flexDirection: 'column',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: '1rem'
+    padding: '1rem 2rem',
+    backgroundColor: '#111',
+    borderBottom: '1px solid #222'
   },
   logo: {
-    width: '50px',
-    marginBottom: '1.5rem'
+    height: '40px'
+  },
+  navRight: {
+    display: 'flex',
+    gap: '1rem'
   },
   navButton: {
     background: 'transparent',
     color: 'lightblue',
     border: '1px solid lightblue',
-    padding: '0.5rem 1rem',
+    padding: '0.5rem 1.25rem',
     borderRadius: '6px',
     fontSize: '1rem',
     cursor: 'pointer',
     textDecoration: 'none'
   },
   contentWrapper: {
-    flex: 1,
-    padding: '2rem'
+    maxWidth: '900px',
+    margin: '0 auto',
+    padding: '2rem 1rem'
   },
   headingStyle: {
     fontSize: '3rem',
     fontWeight: '900',
     letterSpacing: '0.03em',
     textShadow: '0 0 10px rgba(255,255,255,0.9)',
-    textAlign: 'center',
-    marginBottom: '0.5rem'
+    marginBottom: '0.5rem',
+    textAlign: 'center'
+  },
+  heroSection: {
+    padding: '3rem 1rem 2rem'
   },
   badgeStyle: {
     marginTop: '2rem',
@@ -248,17 +257,22 @@ const styles = {
     cursor: 'pointer'
   },
   popoverStyle: {
-    backgroundColor: '#1c1c1c',
+    position: 'absolute',
+    top: '4rem',
+    right: '2rem',
+    backgroundColor: '#111',
     padding: '1rem',
     borderRadius: '8px',
-    marginTop: '1rem',
-    boxShadow: '0 0 10px rgba(255,255,255,0.1)',
-    fontSize: '0.9rem'
+    boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+    zIndex: 2,
+    minWidth: '260px',
+    textAlign: 'left'
   },
   footer: {
     textAlign: 'center',
-    marginTop: '3rem',
-    color: '#666',
-    fontSize: '0.9rem'
+    marginTop: '4rem',
+    padding: '2rem 0',
+    borderTop: '1px solid #222',
+    color: '#666'
   }
 };
