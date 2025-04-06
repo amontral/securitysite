@@ -27,7 +27,8 @@ export default function App() {
         await fetch("https://formspree.io/f/xwplwkpk", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Accept": "application/json"
           },
           body: JSON.stringify(payload)
         });
@@ -126,7 +127,7 @@ export default function App() {
       )}
 
       {/* Hero Section */}
-      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem', backgroundColor: '#1f2a35', borderBottom: '1px solid rgba(255,255,255,0.1)', borderRadius: '0 0 20px 20px' }}>
+      <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem', backgroundColor: '#1f2a35' }}>
         <h1 style={{ fontSize: '4rem', fontWeight: '900', letterSpacing: '0.03em', textShadow: '0 0 10px rgba(255,255,255,0.9)' }}>
           Silex Strategic Group
         </h1>
@@ -139,7 +140,7 @@ export default function App() {
         />
       </div>
 
-      {/* Main Content Sections */}
+      {/* Main Content */}
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
         <section style={sectionStyle}>
           <h2 style={subheading}>What We Do</h2>
@@ -151,19 +152,10 @@ export default function App() {
         <section style={sectionStyle}>
           <h2 style={subheading}>The SBSS Framework</h2>
           <p style={paragraph}>
-            The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments. The SBSS assessment quickly identifies gaps and provides visual scoring to inform next steps.
+            The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments.
           </p>
           <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
-            <a
-              href="/SBSS_Framework.pdf"
-              download
-              style={{
-                ...navButtonStyleLight,
-                backgroundColor: 'rgba(173, 216, 230, 0.1)',
-                borderColor: '#4FC3F7',
-                color: '#4FC3F7'
-              }}
-            >
+            <a href="/SBSS_Framework.pdf" download style={{ ...navButtonStyleLight, color: '#4FC3F7', borderColor: '#4FC3F7' }}>
               Download Full SBSS Framework PDF
             </a>
           </div>
@@ -181,8 +173,10 @@ export default function App() {
           <p style={{ ...paragraph, marginBottom: '1rem' }}>
             We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.
           </p>
-          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-            <button onClick={() => navigate('/services')} style={{ ...navButtonStyleLight, color: '#4FC3F7', borderColor: '#4FC3F7' }}>View Our Services</button>
+          <div style={{ textAlign: 'center' }}>
+            <button onClick={() => navigate('/services')} style={{ ...navButtonStyleLight, color: '#4FC3F7', borderColor: '#4FC3F7' }}>
+              View Our Services
+            </button>
           </div>
         </section>
       </div>
@@ -199,16 +193,6 @@ const navButtonStyleLight = {
   fontSize: '1rem',
   cursor: 'pointer',
   textDecoration: 'none'
-};
-
-const popoverStyle = {
-  backgroundColor: '#111',
-  padding: '1rem',
-  borderRadius: '8px',
-  boxShadow: '0 0 10px rgba(0,0,0,0.3)',
-  zIndex: 2,
-  minWidth: '260px',
-  textAlign: 'left'
 };
 
 const modalOverlay = {
@@ -245,6 +229,16 @@ const closeButton = {
   color: 'white',
   fontSize: '1.2rem',
   cursor: 'pointer'
+};
+
+const popoverStyle = {
+  backgroundColor: '#111',
+  padding: '1rem',
+  borderRadius: '8px',
+  boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+  zIndex: 2,
+  minWidth: '260px',
+  textAlign: 'left'
 };
 
 const sectionStyle = {
