@@ -46,6 +46,31 @@ export default function App() {
 
   return (
     <div style={{ backgroundColor: '#0c0c0e', color: 'white', minHeight: '100vh', fontFamily: "'Segoe UI', sans-serif" }}>
+      {/* Navigation Bar */}
+      <div style={{ backgroundColor: '#f8f9fa', color: '#0c0c0e', borderBottom: '1px solid rgba(0,0,0,0.1)', padding: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '900px', margin: '0 auto' }}>
+          <h2 style={{ margin: 0, fontSize: '1.2rem' }}>Silex Strategic Group</h2>
+          <div className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} style={{ cursor: 'pointer', fontSize: '1.5rem', display: 'block' }}>
+            {menuOpen ? '✕' : '☰'}
+          </div>
+        </div>
+        {menuOpen && (
+          <div style={{ textAlign: 'center', marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <button onClick={handleStartAssessmentClick} style={navButtonStyleLight}>Assessment</button>
+            <button onClick={() => navigate('/services')} style={navButtonStyleLight}>Services</button>
+            <button onClick={() => window.open('https://calendly.com/silexstrategicgroup-oek', '_blank')} style={navButtonStyleLight}>Schedule Consult</button>
+            <button onClick={() => setShowContact(!showContact)} style={navButtonStyleLight}>Contact</button>
+            {showContact && (
+              <div style={popoverStyle}>
+                <h3>Contact Us</h3>
+                <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
+                <p>Phone: <a href="tel:5019527172" style={{ color: 'lightblue' }}>501-952-7172</a></p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* Hero Section */}
       <div style={{ textAlign: 'center', padding: '4rem 1rem 2rem', backgroundColor: '#1f2a35' }}>
         <h1 style={{ fontSize: '4rem', fontWeight: '900', letterSpacing: '0.03em', textShadow: '0 0 10px rgba(255,255,255,0.9)' }}>
@@ -84,6 +109,18 @@ export default function App() {
           <p style={paragraph}>
             Modern threats target both physical and digital assets. A cyberattack may start with a stolen keycard or an untrained employee. That’s why we advocate layered, end-to-end protection—from locked doors to encrypted networks—so your entire business ecosystem is covered.
           </p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={subheading}>Explore Our Services</h2>
+          <p style={{ ...paragraph, marginBottom: '1rem' }}>
+            We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.
+          </p>
+          <div style={{ textAlign: 'center' }}>
+            <button onClick={() => navigate('/services')} style={{ ...navButtonStyleLight, color: '#4FC3F7', borderColor: '#4FC3F7' }}>
+              View Our Services
+            </button>
+          </div>
         </section>
       </div>
 
@@ -202,4 +239,14 @@ const paragraph = {
   fontSize: '1rem',
   color: '#ccc',
   textAlign: 'center'
+};
+
+const popoverStyle = {
+  backgroundColor: '#111',
+  padding: '1rem',
+  borderRadius: '8px',
+  boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+  zIndex: 2,
+  minWidth: '260px',
+  textAlign: 'left'
 };
