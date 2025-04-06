@@ -99,7 +99,53 @@ export default function App() {
         />
       </div>
 
-      {/* Additional content would go here... */}
+      {/* Main Content Sections */}
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
+        <section style={sectionStyle}>
+          <h2 style={subheading}>What We Do</h2>
+          <p style={paragraph}>
+            Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers. Our approach is grounded, practical, and aligned with real-world threats.
+          </p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={subheading}>The SBSS Framework</h2>
+          <p style={paragraph}>
+            The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments. The SBSS assessment quickly identifies gaps and provides visual scoring to inform next steps.
+          </p>
+          <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+            <a
+              href="/SBSS_Framework.pdf"
+              download
+              style={{
+                ...navButtonStyleLight,
+                backgroundColor: 'rgba(173, 216, 230, 0.1)',
+                borderColor: '#4FC3F7',
+                color: '#4FC3F7'
+              }}
+            >
+              Download Full SBSS Framework PDF
+            </a>
+          </div>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={subheading}>Why Comprehensive Security?</h2>
+          <p style={paragraph}>
+            Modern threats target both physical and digital assets. A cyberattack may start with a stolen keycard or an untrained employee. That’s why we advocate layered, end-to-end protection—from locked doors to encrypted networks—so your entire business ecosystem is covered.
+          </p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={subheading}>Explore Our Services</h2>
+          <p style={{ ...paragraph, marginBottom: '1rem' }}>
+            We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.
+          </p>
+          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+            <button onClick={() => navigate('/services')} style={navButtonStyleLight}>View Our Services</button>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
@@ -123,4 +169,25 @@ const popoverStyle = {
   zIndex: 2,
   minWidth: '260px',
   textAlign: 'left'
+};
+
+const sectionStyle = {
+  marginBottom: '2.5rem',
+  padding: '1.5rem',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  borderRadius: '8px'
+};
+
+const subheading = {
+  fontSize: '1.5rem',
+  fontWeight: 'bold',
+  color: '#aadfff',
+  marginBottom: '0.75rem',
+  textAlign: 'center'
+};
+
+const paragraph = {
+  fontSize: '1rem',
+  color: '#ccc',
+  textAlign: 'center'
 };
