@@ -6,68 +6,71 @@ export default function Assessment() {
   const location = useLocation();
   const navigate = useNavigate();
   const type = new URLSearchParams(location.search).get('type');
+
   const disclaimerInfo = JSON.parse(localStorage.getItem('sbss_disclaimer')) || {};
 
   const physicalControls = [
-    "SBSS.Physical.1: Are all entry points secured with commercial-grade locks?",
-    "SBSS.Physical.2: Is a visitor log or access control system in use?",
-    "SBSS.Physical.3: Are surveillance cameras installed and functional?",
-    "SBSS.Physical.4: Are exterior lights operational and positioned for visibility?",
-    "SBSS.Physical.5: Are sensitive areas restricted by locks or access control?",
-    "SBSS.Physical.6: Is alarm system signage clearly displayed?",
-    "SBSS.Physical.7: Are emergency exits clearly marked and unobstructed?",
-    "SBSS.Physical.8: Are employees trained in physical security protocols?",
-    "SBSS.Physical.9: Is there a documented facility access policy?",
-    "SBSS.Physical.10: Are server/network rooms physically locked?",
-    "SBSS.Physical.11: Are ID badges or uniforms used for staff identification?",
-    "SBSS.Physical.12: Are deliveries inspected before entering secure areas?",
-    "SBSS.Physical.13: Are perimeter fences or barriers in place (if applicable)?",
-    "SBSS.Physical.14: Are keys and access codes tracked and reviewed regularly?",
-    "SBSS.Physical.15: Are critical infrastructure components monitored (HVAC, etc.)?",
-    "SBSS.Physical.16: Are panic buttons or silent alarms available (if needed)?",
-    "SBSS.Physical.17: Are surveillance recordings stored for at least 30 days?",
-    "SBSS.Physical.18: Are visitor badges issued and collected?",
-    "SBSS.Physical.19: Are cleaning/janitorial staff vetted and monitored?",
-    "SBSS.Physical.20: Are cable and server closets locked?",
-    "SBSS.Physical.21: Are physical security incidents logged and reviewed?",
-    "SBSS.Physical.22: Is there a designated security officer or manager?",
-    "SBSS.Physical.23: Are exterior entrances secured after hours?",
-    "SBSS.Physical.24: Are windows reinforced or alarmed where needed?",
-    "SBSS.Physical.25: Has a recent physical security assessment been conducted?"
+    "SBSS.Physical.1: Are all entry points secured with locks or access control systems?",
+    "SBSS.Physical.2: Are visitor logs maintained for non-employees entering the premises?",
+    "SBSS.Physical.3: Are security cameras installed and actively monitored?",
+    "SBSS.Physical.4: Are emergency exits clearly marked and unobstructed?",
+    "SBSS.Physical.5: Are lighting systems in place to deter unauthorized access at night?",
+    "SBSS.Physical.6: Are sensitive areas protected with restricted access?",
+    "SBSS.Physical.7: Are alarm systems installed and tested regularly?",
+    "SBSS.Physical.8: Are employees trained on physical security protocols?",
+    "SBSS.Physical.9: Are equipment and assets tagged or inventoried?",
+    "SBSS.Physical.10: Are entrances and exits monitored during business hours?",
+    "SBSS.Physical.11: Is there a physical security policy accessible to staff?",
+    "SBSS.Physical.12: Are security incidents documented and reviewed?",
+    "SBSS.Physical.13: Are delivery and loading areas controlled and logged?",
+    "SBSS.Physical.14: Are internal doors secured when unattended?",
+    "SBSS.Physical.15: Are server rooms physically locked at all times?",
+    "SBSS.Physical.16: Is physical access logged for sensitive zones?",
+    "SBSS.Physical.17: Are exterior barriers such as fences or gates in place?",
+    "SBSS.Physical.18: Are ID badges or access cards issued and tracked?",
+    "SBSS.Physical.19: Are workstations secured after hours?",
+    "SBSS.Physical.20: Are unauthorized items restricted from entry?",
+    "SBSS.Physical.21: Are site-specific risks documented in a physical audit?",
+    "SBSS.Physical.22: Are physical inspections conducted regularly?",
+    "SBSS.Physical.23: Are CCTV recordings retained for a minimum of 30 days?",
+    "SBSS.Physical.24: Are backup power systems in place for security infrastructure?",
+    "SBSS.Physical.25: Is the physical security plan reviewed annually?"
   ];
 
   const infosecControls = [
-    "SBSS.InfoSec.1: Are employee accounts protected by multi-factor authentication?",
-    "SBSS.InfoSec.2: Is antivirus or endpoint protection active on all devices?",
-    "SBSS.InfoSec.3: Is data regularly backed up and stored offsite or in the cloud?",
-    "SBSS.InfoSec.4: Are firewalls or secure routers in place?",
-    "SBSS.InfoSec.5: Are passwords required to meet complexity standards?",
-    "SBSS.InfoSec.6: Are old accounts promptly disabled or removed?",
-    "SBSS.InfoSec.7: Is sensitive data encrypted in storage and transit?",
-    "SBSS.InfoSec.8: Is employee cybersecurity training provided regularly?",
-    "SBSS.InfoSec.9: Are system updates and patches applied promptly?",
-    "SBSS.InfoSec.10: Are vendor and third-party risks evaluated?",
-    "SBSS.InfoSec.11: Is there an acceptable use policy for employees?",
-    "SBSS.InfoSec.12: Are suspicious emails reported and tracked?",
-    "SBSS.InfoSec.13: Are personal devices restricted or secured on networks?",
-    "SBSS.InfoSec.14: Are audit logs maintained for critical systems?",
-    "SBSS.InfoSec.15: Is remote access secured and monitored?",
-    "SBSS.InfoSec.16: Are admin privileges limited and reviewed?",
-    "SBSS.InfoSec.17: Is there a documented incident response plan?",
-    "SBSS.InfoSec.18: Are cloud-based apps and storage monitored?",
-    "SBSS.InfoSec.19: Are privacy regulations (HIPAA, GDPR, etc.) addressed?",
-    "SBSS.InfoSec.20: Are Wi-Fi networks encrypted (WPA2 or WPA3)?",
-    "SBSS.InfoSec.21: Is removable media (USBs, drives) usage controlled?",
-    "SBSS.InfoSec.22: Is employee offboarding documented and enforced?",
-    "SBSS.InfoSec.23: Are system configurations reviewed periodically?",
-    "SBSS.InfoSec.24: Is access to financial systems limited and tracked?",
-    "SBSS.InfoSec.25: Has an internal or external IT security review occurred?"
+    "SBSS.InfoSec.1: Is multi-factor authentication (MFA) enabled for all key systems?",
+    "SBSS.InfoSec.2: Are user access privileges reviewed regularly?",
+    "SBSS.InfoSec.3: Is antivirus or endpoint protection installed on all devices?",
+    "SBSS.InfoSec.4: Are all systems regularly patched and updated?",
+    "SBSS.InfoSec.5: Are employees trained in cybersecurity awareness?",
+    "SBSS.InfoSec.6: Are data backups performed regularly and stored securely?",
+    "SBSS.InfoSec.7: Is encryption used for sensitive data at rest and in transit?",
+    "SBSS.InfoSec.8: Are firewall systems in place and actively monitored?",
+    "SBSS.InfoSec.9: Are email filtering and anti-phishing measures enabled?",
+    "SBSS.InfoSec.10: Are vendor risks evaluated before integrating with third parties?",
+    "SBSS.InfoSec.11: Is an incident response plan documented and tested?",
+    "SBSS.InfoSec.12: Are users required to use strong, unique passwords?",
+    "SBSS.InfoSec.13: Are remote access protocols secured?",
+    "SBSS.InfoSec.14: Is sensitive data access logged and audited?",
+    "SBSS.InfoSec.15: Are personal devices restricted or controlled on the network?",
+    "SBSS.InfoSec.16: Are obsolete user accounts removed promptly?",
+    "SBSS.InfoSec.17: Is access to sensitive systems restricted by role?",
+    "SBSS.InfoSec.18: Are file-sharing permissions reviewed periodically?",
+    "SBSS.InfoSec.19: Is screen lock enforced on company devices?",
+    "SBSS.InfoSec.20: Are security policies clearly documented and shared?",
+    "SBSS.InfoSec.21: Is web traffic filtered for malicious content?",
+    "SBSS.InfoSec.22: Are SaaS platforms configured with least-privilege principles?",
+    "SBSS.InfoSec.23: Are logs centralized and reviewed for anomalies?",
+    "SBSS.InfoSec.24: Is cloud storage monitored for unauthorized changes?",
+    "SBSS.InfoSec.25: Is a cybersecurity audit conducted at least annually?"
   ];
 
   const controls = type === 'physical' ? physicalControls : infosecControls;
 
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [certificationForm, setCertificationForm] = useState({ name: '', email: '', message: '' });
 
   const handleAnswer = (response) => {
     setAnswers((prev) => [...prev, response]);
@@ -101,11 +104,11 @@ export default function Assessment() {
       case 'Secure':
         return "Your environment appears secure! Consider applying for SBSS Certification to officially validate and showcase your strong security posture.";
       case 'Needs Improvement':
-        return "Your environment shows promise, but improvements are needed. Consider reviewing the controls you answered 'No' to and building a roadmap.";
+        return "Your environment shows promise, but improvements are needed. Review the 'No' responses and prioritize enhancements.";
       case 'At-Risk':
-        return "Your environment is at risk. We recommend scheduling a consultation to address key security gaps and develop a resilience strategy.";
+        return "Your environment is at risk. We recommend booking a consultation to address critical vulnerabilities.";
       default:
-        return "";
+        return "Assessment complete.";
     }
   };
 
@@ -119,7 +122,7 @@ export default function Assessment() {
   };
 
   const sendResultsByEmail = () => {
-    fetch("https://formspree.io/f/mpwpyvkr", {
+    fetch("https://formspree.io/f/xwplwkpk", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -142,11 +145,12 @@ export default function Assessment() {
     pdf.text("Email: silexstrategicgroup@gmail.com | Phone: 501-952-7172", 20, 40);
     pdf.text(`Business Name: ${disclaimerInfo.business || 'N/A'}`, 20, 50);
     pdf.text(`Contact Email: ${disclaimerInfo.email || 'N/A'}`, 20, 60);
-    pdf.text(`Assessment Type: ${type === 'physical' ? 'Physical Security' : 'Information Security'}`, 20, 70);
-    pdf.text(`Score: ${getScore()}`, 20, 80);
-    pdf.text(`Disclaimer: This is a self-assessment. SBSS certification is subject to validation and audit.`, 20, 90, { maxWidth: 170 });
+    pdf.text(`Disclaimer Acknowledged: ${new Date(disclaimerInfo.timestamp).toLocaleString() || 'N/A'}`, 20, 70);
+    pdf.text(`Assessment Type: ${type === 'physical' ? 'Physical Security' : 'Information Security'}`, 20, 80);
+    pdf.text(`Score: ${getScore()}`, 20, 90);
+    pdf.text(`Disclaimer: This is a self-assessment. SBSS certification is subject to validation and audit.`, 20, 100, { maxWidth: 170 });
 
-    let y = 110;
+    let y = 120;
     controls.forEach((control, i) => {
       const answer = answers[i] || 'No Response';
       const lines = pdf.splitTextToSize(`${control} - Answer: ${answer}`, 170);
@@ -164,51 +168,79 @@ export default function Assessment() {
     sendResultsByEmail();
   };
 
+  const handleCertFormSubmit = (e) => {
+    e.preventDefault();
+    fetch("https://formspree.io/f/mdkepapw", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(certificationForm)
+    }).then(() => {
+      alert("Your certification inquiry has been submitted.");
+      setShowContactForm(false);
+      setCertificationForm({ name: '', email: '', message: '' });
+    });
+  };
+
   return (
-    <div style={{ padding: '2rem', backgroundColor: '#0c0c0e', minHeight: '100vh', color: 'white' }}>
+    <div style={{ backgroundColor: '#0c0c0e', color: 'white', minHeight: '100vh', padding: '2rem' }}>
       {index < controls.length ? (
-        <div style={cardStyle}>
-          <h3 style={{ color: '#aaa' }}>{controls[index].split(':')[0]}</h3>
+        <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
+          <h3 style={{ color: '#aadfff' }}>{controls[index].split(':')[0]}</h3>
           <p>{controls[index].split(': ')[1]}</p>
-          <progress value={index + 1} max={controls.length} style={{ width: '100%' }} />
-          <p>{index + 1} of {controls.length}</p>
-          <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+          <progress value={index + 1} max={controls.length} style={{ width: '100%', margin: '1rem 0' }} />
+          <div>
             <button onClick={() => handleAnswer('yes')} style={buttonStyle}>Yes</button>
             <button onClick={() => handleAnswer('no')} style={buttonStyle}>No</button>
           </div>
-          {index > 0 && <button onClick={handleBack} style={{ ...buttonStyle, marginTop: '1rem' }}>Back</button>}
+          {index > 0 && (
+            <button onClick={handleBack} style={{ ...buttonStyle, marginTop: '1rem' }}>Back</button>
+          )}
+        </div>
+      ) : showContactForm ? (
+        <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#1a1a1a', padding: '2rem', borderRadius: '12px' }}>
+          <h2>Start SBSS Certification</h2>
+          <form onSubmit={handleCertFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+            <input type="text" placeholder="Full Name" value={certificationForm.name} onChange={(e) => setCertificationForm({ ...certificationForm, name: e.target.value })} required />
+            <input type="email" placeholder="Email" value={certificationForm.email} onChange={(e) => setCertificationForm({ ...certificationForm, email: e.target.value })} required />
+            <textarea placeholder="Message or Details" rows="4" value={certificationForm.message} onChange={(e) => setCertificationForm({ ...certificationForm, message: e.target.value })} />
+            <div>
+              <button type="submit" style={buttonStyle}>Submit</button>
+              <button type="button" onClick={() => setShowContactForm(false)} style={{ ...buttonStyle, marginLeft: '1rem' }}>Cancel</button>
+            </div>
+          </form>
         </div>
       ) : (
-        <div style={cardStyle}>
+        <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
           <h2>Assessment Complete</h2>
-          <p style={{ color: getColor(getScore()) }}>Result: <strong>{getScore()}</strong></p>
-          <p style={{ marginTop: '1rem' }}>{getMessage(getScore())}</p>
-          <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
+          <p style={{ color: getColor(getScore()), fontSize: '1.3rem' }}>
+            Result: <strong>{getScore()}</strong>
+          </p>
+          <p style={{ margin: '1rem 0' }}>{getMessage(getScore())}</p>
+          <div>
             <button onClick={handleRestart} style={buttonStyle}>Restart</button>
             <button onClick={() => navigate('/')} style={buttonStyle}>Back to Home</button>
             <button onClick={downloadPDF} style={buttonStyle}>Download Report</button>
           </div>
+          {getScore() === 'Secure' && (
+            <div style={{ marginTop: '1.5rem' }}>
+              <button onClick={() => setShowContactForm(true)} style={{ ...buttonStyle, backgroundColor: 'lightblue', color: '#000' }}>
+                Start SBSS Certification
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
   );
 }
 
-const cardStyle = {
-  backgroundColor: '#1a1a1a',
-  padding: '2rem',
-  borderRadius: '12px',
-  maxWidth: '600px',
-  margin: '0 auto',
-  textAlign: 'center',
-  boxShadow: '0 0 20px rgba(255,255,255,0.05)'
-};
-
 const buttonStyle = {
-  backgroundColor: 'white',
-  color: 'black',
+  backgroundColor: '#fff',
+  color: '#000',
   padding: '0.75rem 1.5rem',
-  borderRadius: '6px',
   fontWeight: 'bold',
+  borderRadius: '6px',
+  border: 'none',
+  margin: '0.5rem',
   cursor: 'pointer'
 };
