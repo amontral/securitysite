@@ -11,25 +11,14 @@ export default function App() {
   const navigate = useNavigate();
 
   const handleStartAssessmentClick = () => {
-    const disclaimerAccepted = localStorage.getItem('sbss_disclaimer');
-    if (disclaimerAccepted) {
-      setShowOptions(true);
-    } else {
-      setShowDisclaimer(true);
-    }
+    setShowDisclaimer(true);
   };
 
   const handleDisclaimerSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.name && formData.business && formData.email && formData.agreed) {
-      const payload = {
-        name: formData.name,
-        business: formData.business,
-        email: formData.email,
-        agreed: formData.agreed
-      };
-
+      const payload = { ...formData };
       try {
         await fetch("https://formspree.io/f/xwplwkpk", {
           method: "POST",
@@ -39,11 +28,10 @@ export default function App() {
           },
           body: JSON.stringify(payload)
         });
-
         localStorage.setItem('sbss_disclaimer', JSON.stringify({ ...payload, timestamp: new Date().toISOString() }));
         setShowDisclaimer(false);
         setShowOptions(true);
-      } catch (error) {
+      } catch {
         alert("Failed to send form. Please try again.");
       }
     } else {
@@ -94,6 +82,55 @@ export default function App() {
           Silex Strategic Group
         </h1>
         <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
+        <img
+          src="/sbss-badge.png"
+          alt="SBSS Badge Background"
+          style={{
+            marginTop: '2rem', opacity: 0.25,
+            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
+            width: '180px', pointerEvents: 'none'
+          }}
+        />
+      </div>
+
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
+        <section style={sectionStyle}>
+          <h2 style={subheading}>What We Do</h2>
+          <p style={paragraph}>
+            Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers.
+          </p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={subheading}>The SBSS Framework</h2>
+          <p style={paragraph}>
+            The Small Business Security Standard (SBSS) simplifies enterprise-grade risk principles into actionable controls for small businesses.
+          </p>
+          <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+            <a href="/SBSS_Framework.pdf" download style={{ ...navButtonStyleLight, color: '#4FC3F7', borderColor: '#4FC3F7' }}>
+              Download Full SBSS Framework PDF
+            </a>
+          </div>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={subheading}>Why Comprehensive Security?</h2>
+          <p style={paragraph}>
+            A cyberattack may start with a stolen keycard or an untrained employee. We advocate layered, end-to-end protection—from locked doors to encrypted networks.
+          </p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={subheading}>Explore Our Services</h2>
+          <p style={{ ...paragraph, marginBottom: '1rem' }}>
+            We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.
+          </p>
+          <div style={{ textAlign: 'center' }}>
+            <button onClick={() => navigate('/services')} style={{ ...navButtonStyleLight, color: '#4FC3F7', borderColor: '#4FC3F7' }}>
+              View Our Services
+            </button>
+          </div>
+        </section>
       </div>
 
       {showDisclaimer && (
@@ -113,7 +150,8 @@ export default function App() {
               <input type="text" placeholder="Business Name" value={formData.business} onChange={(e) => setFormData({ ...formData, business: e.target.value })} />
               <input type="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
               <label>
-                <input type="checkbox" checked={formData.agreed} onChange={(e) => setFormData({ ...formData, agreed: e.target.checked })} /> I agree to the disclaimer terms
+                <input type="checkbox" checked={formData.agreed} onChange={(e) => setFormData({ ...formData, agreed: e.target.checked })} />
+                I agree to the disclaimer terms
               </label>
               <button type="submit" style={navButtonStyleLight}>Continue to Assessment</button>
             </form>
@@ -145,6 +183,27 @@ const navButtonStyleLight = {
   fontSize: '1rem',
   cursor: 'pointer',
   textDecoration: 'none'
+};
+
+const sectionStyle = {
+  marginBottom: '2.5rem',
+  padding: '1.5rem',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  borderRadius: '8px'
+};
+
+const subheading = {
+  fontSize: '1.5rem',
+  fontWeight: 'bold',
+  color: '#aadfff',
+  marginBottom: '0.75rem',
+  textAlign: 'center'
+};
+
+const paragraph = {
+  fontSize: '1rem',
+  color: '#ccc',
+  textAlign: 'center'
 };
 
 const modalOverlay = {
