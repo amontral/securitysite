@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function App() {
   const [showOptions, setShowOptions] = useState(false);
-  const [showServices, setShowServices] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [formData, setFormData] = useState({
@@ -34,22 +33,14 @@ export default function App() {
   };
 
   return (
-    <div style={{ backgroundColor: '#0c0c0e', height: '100vh', color: 'white', position: 'relative', overflow: 'hidden', fontFamily: "'Segoe UI', 'Roboto', 'Arial Black', sans-serif" }}>
+    <div style={{ backgroundColor: '#0c0c0e', minHeight: '100vh', color: 'white', position: 'relative', overflowX: 'hidden', fontFamily: "'Segoe UI', 'Roboto', 'Arial Black', sans-serif" }}>
 
       {/* Navigation */}
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', gap: '2rem', padding: '1.5rem 1rem', flexWrap: 'wrap' }}>
         <button onClick={handleStartAssessmentClick} style={navButtonStyle}>Small Business Security Assessment</button>
+        <button onClick={() => navigate('/services')} style={navButtonStyle}>Services</button>
         <div style={{ position: 'relative' }}>
-          <button onClick={() => { setShowServices(!showServices); setShowContact(false); }} style={navButtonStyle}>Services</button>
-          {showServices && (
-            <div style={popoverStyle}>
-              <h3 style={{ margin: '0 0 0.5rem' }}>Our Services</h3>
-              <p style={{ margin: 0 }}>Physical and Information Security Consulting</p>
-            </div>
-          )}
-        </div>
-        <div style={{ position: 'relative' }}>
-          <button onClick={() => { setShowContact(!showContact); setShowServices(false); }} style={navButtonStyle}>Contact</button>
+          <button onClick={() => { setShowContact(!showContact); }} style={navButtonStyle}>Contact</button>
           {showContact && (
             <div style={popoverStyle}>
               <h3 style={{ margin: '0 0 0.5rem' }}>Contact Us</h3>
@@ -75,9 +66,9 @@ export default function App() {
           alt="SBSS Badge Background"
           style={{
             marginTop: '2rem',
-            opacity: 0.35,
-            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.55))',
-            width: '200px',
+            opacity: 0.25,
+            filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
+            width: '180px',
             animation: 'pulseGlow 4s ease-in-out infinite',
             pointerEvents: 'none'
           }}
@@ -86,26 +77,26 @@ export default function App() {
         <style>
           {`
             @keyframes pulseGlow {
-              0% { transform: scale(1); opacity: 0.35; }
-              50% { transform: scale(1.1); opacity: 0.45; }
-              100% { transform: scale(1); opacity: 0.35; }
+              0% { transform: scale(1); opacity: 0.25; }
+              50% { transform: scale(1.1); opacity: 0.35; }
+              100% { transform: scale(1); opacity: 0.25; }
             }
           `}
         </style>
-      </div>
 
-      {/* Floating Assessment Type Modal */}
-      {showOptions && (
-        <div style={modalOverlay}>
-          <div style={modalBox}>
-            <h3 style={{ color: 'lightgray' }}>Choose Assessment Type</h3>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
-              <button onClick={() => navigate('/assessment?type=physical')} style={choiceBtnStyle}>Physical Security</button>
-              <button onClick={() => navigate('/assessment?type=infosec')} style={choiceBtnStyle}>Information Security</button>
+        {/* Assessment Type Selection */}
+        {showOptions && (
+          <div style={modalOverlay}>
+            <div style={modalBox}>
+              <h3 style={{ color: 'lightgray' }}>Choose Assessment Type</h3>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+                <button onClick={() => navigate('/assessment?type=physical')} style={choiceBtnStyle}>Physical Security</button>
+                <button onClick={() => navigate('/assessment?type=infosec')} style={choiceBtnStyle}>Information Security</button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Disclaimer Modal */}
       {showDisclaimer && (
