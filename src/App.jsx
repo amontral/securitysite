@@ -185,4 +185,171 @@ const content = [
 ];
 
 
-const styles = {...}; // unchanged
+const styles = {
+  container: {
+    backgroundColor: '#0c0c0e',
+    minHeight: '100vh',
+    color: 'white',
+    fontFamily: "'Segoe UI', 'Roboto', sans-serif",
+  },
+  navWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '2rem',
+    padding: '1.5rem 1rem',
+    flexWrap: 'wrap'
+  },
+  navButton: {
+    background: 'transparent',
+    color: 'lightblue',
+    border: '1px solid lightblue',
+    padding: '0.5rem 1.25rem',
+    borderRadius: '6px',
+    fontSize: '1rem',
+    cursor: 'pointer',
+    textDecoration: 'none'
+  },
+  innerWrapper: {
+    maxWidth: '900px',
+    margin: '0 auto',
+    padding: '2rem 1rem'
+  },
+  heroTitle: {
+    fontSize: '4rem',
+    fontWeight: '900',
+    letterSpacing: '0.03em',
+    textShadow: '0 0 10px rgba(255,255,255,0.9)'
+  },
+  heroSubtitle: {
+    color: '#aaa',
+    fontSize: '1.2rem'
+  },
+  badgeStyle: {
+    marginTop: '2rem',
+    opacity: 0.25,
+    filter: 'drop-shadow(0 0 45px rgba(255, 255, 255, 0.6))',
+    width: '180px',
+    pointerEvents: 'none'
+  },
+  section: {
+    marginBottom: '2.5rem',
+    padding: '2rem',
+    borderRadius: '10px'
+  },
+  subheading: {
+    fontSize: '1.6rem',
+    fontWeight: 'bold',
+    color: '#aadfff',
+    marginBottom: '0.75rem'
+  },
+  text: {
+    fontSize: '1rem',
+    color: '#ccc'
+  },
+  ctaSection: {
+    backgroundColor: '#111',
+    padding: '3rem 1.5rem',
+    borderRadius: '12px',
+    textAlign: 'center',
+    marginTop: '4rem',
+    boxShadow: '0 0 30px rgba(255,255,255,0.05)'
+  },
+  ctaHeading: {
+    fontSize: '1.8rem',
+    marginBottom: '1rem',
+    color: '#fff'
+  },
+  buttonRow: {
+    marginTop: '1.5rem',
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '1.5rem',
+    flexWrap: 'wrap'
+  },
+  ctaButton: {
+    backgroundColor: '#fff',
+    color: '#000',
+    padding: '0.75rem 1.5rem',
+    fontWeight: 'bold',
+    borderRadius: '8px',
+    border: 'none',
+    cursor: 'pointer'
+  },
+  ctaButtonOutline: {
+    backgroundColor: 'transparent',
+    border: '1px solid #fff',
+    color: '#fff',
+    padding: '0.75rem 1.5rem',
+    fontWeight: 'bold',
+    borderRadius: '8px',
+    cursor: 'pointer'
+  },
+  footer: {
+    textAlign: 'center',
+    padding: '2rem 1rem',
+    fontSize: '0.85rem',
+    color: '#777',
+    marginTop: '4rem'
+  },
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10
+  },
+  modalBox: {
+    position: 'relative',
+    backgroundColor: '#1a1a1a',
+    padding: '2rem',
+    borderRadius: '12px',
+    maxWidth: '500px',
+    width: '90%',
+    color: 'white',
+    textAlign: 'center',
+    boxShadow: '0 0 20px rgba(0,0,0,0.5)'
+  },
+  modalText: {
+    fontSize: '0.95rem',
+    color: '#ccc'
+  },
+  modalList: {
+    fontSize: '0.85rem',
+    textAlign: 'left',
+    color: '#ccc'
+  },
+  modalForm: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.75rem'
+  },
+  modalCloseBtn: {
+    position: 'absolute',
+    top: '1rem',
+    right: '1rem',
+    background: 'transparent',
+    border: 'none',
+    color: 'white',
+    fontSize: '1.2rem',
+    cursor: 'pointer'
+  },
+  popoverStyle: {
+    position: 'absolute',
+    top: '3rem',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: '#111',
+    padding: '1rem',
+    borderRadius: '8px',
+    boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+    zIndex: 2,
+    minWidth: '260px',
+    textAlign: 'left'
+  }
+};
+
