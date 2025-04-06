@@ -161,6 +161,28 @@ export default function App() {
   );
 }
 
-const content = [...]; // unchanged
+const content = [
+  {
+    title: "What We Do",
+    text: "Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers. Our approach is grounded, practical, and aligned with real-world threats."
+  },
+  {
+    title: "The SBSS Framework",
+    text: "The Small Business Security Standard (SBSS) is a proprietary framework developed by Silex Strategic Group. It simplifies enterprise-grade risk principles into actionable controls for small business environments. The SBSS assessment quickly identifies gaps and provides visual scoring to inform next steps."
+  },
+  {
+    title: "Why Comprehensive Security?",
+    text: "Modern threats target both physical and digital assets. A cyberattack may start with a stolen keycard or an untrained employee. That’s why we advocate layered, end-to-end protection—from locked doors to encrypted networks—so your entire business ecosystem is covered."
+  },
+  {
+    title: "SBSS Certification Benefits",
+    text: "SBSS-certified businesses can display our digital badge, enhancing credibility with customers, vendors, and partners. It demonstrates that your business prioritizes both digital and physical safety."
+  },
+  {
+    title: "Tailored Strategy for Small Businesses",
+    text: "Unlike one-size-fits-all compliance checklists, our approach addresses your unique context. We consult, educate, and empower businesses to take meaningful steps toward a secure future."
+  }
+];
+
 
 const styles = {...}; // unchanged
