@@ -181,7 +181,7 @@ export default function App() {
       )}
 
       {/* Add CSS animation style */}
-<style>
+<style>{`
   .pulsing-badge {
     animation: pulse 2s infinite;
     opacity: 0.85;
@@ -199,9 +199,7 @@ export default function App() {
     50% { transform: scale(1.05); opacity: 1; }
     100% { transform: scale(1); opacity: 0.85; }
   }
-</style>
-
-
+`}</style>
     </div>
   );
 }
