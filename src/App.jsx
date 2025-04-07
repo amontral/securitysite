@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function App() {
@@ -9,7 +9,11 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleStartAssessmentClick = () => setShowDisclaimer(true);
+  const handleStartAssessmentClick = () => {
+    setMenuOpen(false); // 👈 Close menu when opening disclaimer
+    setShowDisclaimer(true);
+  };
+
   const handleCloseDisclaimer = () => setShowDisclaimer(false);
 
   const handleDisclaimerSubmit = async (e) => {
@@ -80,10 +84,16 @@ export default function App() {
           Silex Strategic Group
         </h1>
         <p style={{ color: '#aaa', fontSize: '1.2rem' }}>Strategic Security. Real-World Results.</p>
-        <img src="/sbss-badge.png" alt="SBSS Badge" style={{
-          marginTop: '2rem', opacity: 0.25, width: '180px',
-          filter: 'drop-shadow(0 0 45px rgba(255,255,255,0.6))'
-        }} />
+        <img
+          src="/sbss-badge.png"
+          alt="SBSS Badge"
+          className="pulsing-badge"
+          style={{
+            marginTop: '2rem',
+            width: '180px',
+            filter: 'drop-shadow(0 0 45px rgba(255,255,255,0.6))'
+          }}
+        />
       </div>
 
       {/* Content Sections */}
@@ -169,6 +179,19 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Add CSS animation style */}
+      <style>{`
+        .pulsing-badge {
+          animation: pulse 2s infinite;
+          opacity: 0.85;
+        }
+        @keyframes pulse {
+          0% { transform: scale(1); opacity: 0.85; }
+          50% { transform: scale(1.05); opacity: 1; }
+          100% { transform: scale(1); opacity: 0.85; }
+        }
+      `}</style>
     </div>
   );
 }
