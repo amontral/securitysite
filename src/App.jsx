@@ -1,5 +1,4 @@
-// ... existing imports
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function App() {
@@ -11,7 +10,7 @@ export default function App() {
   const navigate = useNavigate();
 
   const handleStartAssessmentClick = () => {
-    setMenuOpen(false);
+    setMenuOpen(false); // 👈 Close menu when opening disclaimer
     setShowDisclaimer(true);
   };
 
@@ -91,12 +90,52 @@ export default function App() {
           className="pulsing-badge"
           style={{
             marginTop: '2rem',
-            width: '180px'
+            width: '180px',
+            filter: 'drop-shadow(0 0 45px rgba(255,255,255,0.6))'
           }}
         />
       </div>
 
-      {/* Content Sections... [unchanged, same as your existing file] */}
+      {/* Content Sections */}
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
+        <section style={sectionStyle}>
+          <h2 style={subheading}>What We Do</h2>
+          <p style={paragraph}>
+            Silex Strategic Group delivers tailored Physical and Information Security Consulting services to help small businesses protect assets, ensure compliance, and establish trust with customers.
+          </p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={subheading}>The SBSS Framework</h2>
+          <p style={paragraph}>
+            The Small Business Security Standard (SBSS) simplifies enterprise-grade risk principles into actionable controls for small businesses.
+          </p>
+          <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+            <a href="/SBSS_Framework.pdf" download style={{ ...navButtonStyleLight, color: '#4FC3F7', borderColor: '#4FC3F7' }}>
+              Download Full SBSS Framework PDF
+            </a>
+          </div>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={subheading}>Why Comprehensive Security?</h2>
+          <p style={paragraph}>
+            A cyberattack may start with a stolen keycard or an untrained employee. We advocate layered, end-to-end protection—from locked doors to encrypted networks.
+          </p>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={subheading}>Explore Our Services</h2>
+          <p style={{ ...paragraph, marginBottom: '1rem' }}>
+            We offer Security Assessments, SBSS Certification, Strategic Consulting, and Compliance Roadmapping.
+          </p>
+          <div style={{ textAlign: 'center' }}>
+            <button onClick={() => navigate('/services')} style={{ ...navButtonStyleLight, color: '#4FC3F7', borderColor: '#4FC3F7' }}>
+              View Our Services
+            </button>
+          </div>
+        </section>
+      </div>
 
       {/* Disclaimer Modal */}
       {showDisclaimer && (
@@ -128,22 +167,25 @@ export default function App() {
         </div>
       )}
 
-      {/* Assessment Modal... [unchanged] */}
+      {/* Assessment Type Modal */}
+      {showOptions && (
+        <div style={modalOverlay}>
+          <div style={modalBox}>
+            <h3 style={{ color: 'lightgray', fontSize: '1.4rem' }}>Choose Assessment Type</h3>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
+              <button onClick={() => navigate('/assessment?type=physical')} style={{ ...navButtonStyleLight, backgroundColor: '#4FC3F7', color: 'white' }}>Physical Security</button>
+              <button onClick={() => navigate('/assessment?type=infosec')} style={{ ...navButtonStyleLight, backgroundColor: '#4FC3F7', color: 'white' }}>Information Security</button>
+            </div>
+          </div>
+        </div>
+      )}
 
-      {/* Pulsing + Hover Glow Style */}
+      {/* Add CSS animation style */}
       <style>{`
         .pulsing-badge {
           animation: pulse 2s infinite;
           opacity: 0.85;
-          transition: all 0.3s ease;
         }
-
-        .pulsing-badge:hover {
-          transform: scale(1.1);
-          filter: drop-shadow(0 0 12px #4FC3F7) brightness(1.2);
-          opacity: 1;
-        }
-
         @keyframes pulse {
           0% { transform: scale(1); opacity: 0.85; }
           50% { transform: scale(1.05); opacity: 1; }
@@ -154,7 +196,7 @@ export default function App() {
   );
 }
 
-// Styles (same as yours)
+// Styles
 const navButtonStyleLight = {
   background: 'transparent',
   color: '#0c0c0e',
