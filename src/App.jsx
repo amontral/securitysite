@@ -181,23 +181,26 @@ export default function App() {
       )}
 
       {/* Add CSS animation style */}
-<style>{`
+<style>
   .pulsing-badge {
     animation: pulse 2s infinite;
     opacity: 0.85;
     transition: all 0.3s ease;
   }
+
   .pulsing-badge:hover {
     transform: scale(1.1);
     filter: drop-shadow(0 0 12px #4FC3F7) brightness(1.2);
     opacity: 1;
   }
+
   @keyframes pulse {
     0% { transform: scale(1); opacity: 0.85; }
     50% { transform: scale(1.05); opacity: 1; }
     100% { transform: scale(1); opacity: 0.85; }
   }
-`}</style>
+</style>
+
 
     </div>
   );
