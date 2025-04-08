@@ -68,6 +68,7 @@ export default function App() {
               }}>
                 <h3>Contact Us</h3>
                 <p>Email: <a href="mailto:silexstrategicgroup@gmail.com" style={{ color: 'lightblue' }}>silexstrategicgroup@gmail.com</a></p>
+<p>Phone: <a href="tel:501-209-3006" style={{ color: 'lightblue' }}>501-209-3006</a></p>
               </div>
             )}
           </div>
